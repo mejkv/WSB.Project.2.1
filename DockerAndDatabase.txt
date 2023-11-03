@@ -1,0 +1,28 @@
+wgranie obrazu i utworzenie kontenera:
+docker run -d --name database_project -p 5432:5432 -e POSTGRES_PASSWORD=sql mejkv/postgres
+
+w pdAdmin:
+add new server
+
+uzupelniamy nazwe serwera
+przechodzimy w connection:
+host name -> localhost
+port -> 5432
+Username -> shop_user
+Password -> sql
+
+Klikamy save i nastepnie:
+wchodzi w ten serwer co dodalismy -> shop_database -> schemas -> tables
+
+i mamy zawartosc bazy danych
+====================================
+opcjonalnie:
+
+wejscie do kontenera 
+docker exec -it database_project bash
+
+odpalenie klastra bazy
+pg_createcluster 16 main --start
+
+odpalenie serwisu postgresql
+service postgresql start
