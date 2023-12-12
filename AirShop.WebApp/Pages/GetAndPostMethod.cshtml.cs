@@ -7,6 +7,7 @@ namespace AirShop.WebApp.Pages.Shared
 {
     public class GetAndPostMethodModel : PageModel
     {
+
         public void OnGet()
         {
         }

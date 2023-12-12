@@ -26,3 +26,40 @@ pg_createcluster 16 main --start
 
 odpalenie serwisu postgresql
 service postgresql start
+====================================
+Przy dodawaniu nowej encji (tabeli)
+Nalezy dodac:
+-klase w folderze Models
+-klase w folderze Entities
+-profil w folderze Profiles
+-nowe property w DbContext
+-w Program.cs dodac automapper
+
+Po dodaniu encji nalezy wykonac migracje (dla czytelnosci w migracjach umowmy sie ze 1 encja = 1 migracja)
+1. dodajemy migracje z nazwa Add[NazwaEncji]Table
+2. wykonujemy update bazy 
+3. sprawdzamy w bazie czy tabela jest widoczna
+====================================
+KOMENDY - MIGRACJE
+
+-dotnet ef migrations add [NazwaMigracji]
+Dodaje nową migrację na podstawie aktualnego stanu modelu danych. Zastąp [NazwaMigracji] odpowiednią nazwą migracji
+
+-dotnet ef database update
+Aktualizuje bazę danych na podstawie migracji. To polecenie wprowadza zmiany zdefiniowane w migracjach do rzeczywistej bazy danych.
+
+-dotnet ef database update [NazwaMigracji]
+Aktualizuje bazę danych do określonej migracji.
+bash
+
+-dotnet ef migrations remove
+Usuwa ostatnią migrację. To polecenie może być używane, gdy chcesz cofnąć ostatnie zmiany w migracjach.
+
+-dotnet ef migrations script
+Generuje skrypt SQL na podstawie migracji, który można użyć do ręcznego wprowadzenia zmian w bazie danych.
+
+-dotnet ef database drop
+Usuwa bazę danych skonfigurowaną w pliku appsettings.json. Uwaga: To polecenie jest potężne i usuwa całą bazę danych!
+
+-dotnet ef dbcontext info
+Wyświetla informacje dotyczące DbContext, takie jak podłączona baza danych, dostępne migracje, itp.

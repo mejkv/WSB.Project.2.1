@@ -15,6 +15,7 @@ builder.Host.UseNLog();
 
 //configure AutoMapper
 builder.Services.AddAutoMapper(typeof(ProductsProfile));
+builder.Services.AddAutoMapper(typeof(ReceiptProfile));
 
 // configure service
 
