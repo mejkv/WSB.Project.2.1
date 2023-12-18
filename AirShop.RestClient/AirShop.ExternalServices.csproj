@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
     <TargetFramework>net7.0</TargetFramework>
@@ -7,12 +7,23 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Templates\ReceiptTemplate.jrxml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="itext7" Version="8.0.2" />
+    <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
-    <PackageReference Include="RestSharp" Version="110.2.0" />
+	  <PackageReference Include="RestSharp" Version="110.2.0" />
+	  <PackageReference Include="JasperTemplates" Version="1.0.1" />
   </ItemGroup>
 
   <ItemGroup>
     <ProjectReference Include="..\AirShop.WebApiPostgre\AirShop.WebApiPostgre.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Resource Include="Templates\ReceiptTemplate.jrxml" />
   </ItemGroup>
 
 </Project>

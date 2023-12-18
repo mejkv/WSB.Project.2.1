@@ -63,3 +63,6 @@ Usuwa bazę danych skonfigurowaną w pliku appsettings.json. Uwaga: To polecenie
 
 -dotnet ef dbcontext info
 Wyświetla informacje dotyczące DbContext, takie jak podłączona baza danych, dostępne migracje, itp.
+
+-dotnet ef migrations list
+Lista dostepnych migracji i ich stan

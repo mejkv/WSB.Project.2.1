@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace AirShop.ExternalServices
+namespace AirShop.ExternalServices.Services.Rest
 {
     public interface IAirRestClient
     {

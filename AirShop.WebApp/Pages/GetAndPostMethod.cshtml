@@ -1,5 +1,5 @@
 ﻿@page
-@model AirShop.WebApp.Pages.Shared.GetAndPostMethodModel
+@model AirShop.WebApp.Pages.GetAndPostMethodModel
 @{
     ViewData["Title"] = "Home page";
 }
@@ -39,6 +39,38 @@
 </head>
 <body>
 
+    <!--ShoppingCart icon-->
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+            <div class="container">
+                <a class="navbar-brand" asp-area="" asp-page="/GetAndPostMethod">AirShop.WebApp</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target=".navbar-collapse" aria-controls="navbarSupportedContent"
+                        aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="navbar-collapse collapse d-sm-inline-flex justify-content-between">
+                    <ul class="navbar-nav flex-grow-1">
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Index">Home</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/GetAndPostMethod">Products</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link text-dark" asp-area="" asp-page="/Privacy">Privacy</a>
+                        </li>
+                    </ul>
+                    <div class="navbar-nav">
+                        <!-- Dodaj ikonę koszyka sklepowego i ilość przedmiotów -->
+                        <a class="nav-link" asp-area="" asp-page="/Cart">
+                            <i class="bi bi-cart"></i> @Model.GetCartItemCount()
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </header>
+
     <h2>Add Product</h2>
     <form id="productForm">
         <!-- ... (unchanged form fields) -->
@@ -48,7 +80,7 @@
     <table id="productTable">
         <thead>
             <tr>
-                <th>Product ID</th>
+                @*<th>Product ID</th>*@
                 <th>Name</th>
                 <th>Value</th>
                 <th>VAT</th>
@@ -58,6 +90,23 @@
         </thead>
         <tbody id="productBody">
             <!-- Product list will be displayed here -->
+            @foreach (var product in Model.GetProducts())
+            {
+                <tr>
+                    @*<td>@product.ProductId</td>*@
+                    <td>@product.Name</td>
+                    <td>@product.Value</td>
+                    <td>@product.Vat</td>
+                    <td>@product.Price</td>
+                    <td>@product.Discount</td>
+                    <td>
+                        <form method="post">
+                            <input type="hidden" name="productId" value="@product.ProductId" />
+                            <button type="submit" asp-page-handler="AddToCart">execute method</button>
+                        </form>
+                    </td>
+                </tr>
+            }
         </tbody>
     </table>
 
@@ -65,7 +114,7 @@
         async function FetchProducts() {
             try {
                 // Call your C# method to get the products
-                var products = await DotNet.invokeMethodAsync('AirShop.WebApp.Pages.Shared', 'GetDevices');
+                var products = await DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'GetProducts');
 
                 // Add products to the table
                 products.forEach(product => AddProductToTable(product));
@@ -97,5 +146,13 @@
         // Fetch and display existing products on page load
         FetchProducts();
     </script>
+   @* <script>
+        function addToCart(productId, event) {
+            event.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
+
+            // Wywołaj metodę AddToCart z modelu
+            DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'AddToCart', productId);
+
+    </script>*@
 </body>
 </html>

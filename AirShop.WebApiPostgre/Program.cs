@@ -1,8 +1,13 @@
+using AirShop.WebApiPostgre.ApiServices;
+using AirShop.WebApiPostgre.Controllers;
 using AirShop.WebApiPostgre.Data.Profiles;
 using AirShop.WebApiPostgre.Data.ShopDbContext;
+using AirShop.WebApiPostgre.Middleware;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
 using NLog.Web;
+using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,15 +15,23 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
+string nlogConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "Config", "nlog.config");
+NLogBuilder.ConfigureNLog(nlogConfigPath);
+builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
+var logger = NLogBuilder.ConfigureNLog(nlogConfigPath).GetCurrentClassLogger();
 
 //logs
 
 //configure AutoMapper
 builder.Services.AddAutoMapper(typeof(ProductsProfile));
 builder.Services.AddAutoMapper(typeof(ReceiptProfile));
+builder.Services.AddAutoMapper(typeof(UserProfile));
 
 // configure service
+logger.Info("Starting services");
+builder.Services.AddScoped<IUserService, UserService>();
 
+logger.Info("Creating database connection");
 builder.Services.AddDbContext<ShopDbContext>(options =>
     options.UseNpgsql(builder.Configuration.GetConnectionString("DatabaseConnection")));
 
@@ -28,6 +41,7 @@ builder.Services.AddSwaggerGen(c =>
     c.SwaggerDoc("v1", new OpenApiInfo { Title = "Project.PO.Shop", Version = "v1" });
 });
 
+logger.Info("Starting API");
 var app = builder.Build();
 
 // configure
@@ -45,79 +59,10 @@ app.UseRouting();
 app.UseAuthorization();
 
 // Logging middleware for incoming requests and responses
-app.Use(async (context, next) =>
-{
-    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-    logger.LogInformation($"{DateTime.Now}: API started.");
+app.UseMiddleware<LoggingMiddleware>();
 
-    try
-    {
-        var dbContext = context.RequestServices.GetRequiredService<ShopDbContext>();
-        await dbContext.Database.MigrateAsync();
-        logger.LogInformation("Database connection is successful.");
-    }
-    catch (Exception ex)
-    {
-        logger.LogError(ex, "Error connecting to the database.");
-    }
-
-    logger.LogInformation($"{DateTime.Now}: Request: {context.Request.Method} {context.Request.Path}");
-
-    var originalBodyStream = context.Response.Body;
-    using (var responseBody = new MemoryStream())
-    {
-        context.Response.Body = responseBody;
-
-        await next();
-
-        responseBody.Seek(0, SeekOrigin.Begin);
-        var responseBodyText = new StreamReader(responseBody).ReadToEnd();
-        logger.LogInformation($"{DateTime.Now}: Response: {context.Response.StatusCode} {responseBodyText}");
-
-        responseBody.Seek(0, SeekOrigin.Begin);
-        await responseBody.CopyToAsync(originalBodyStream);
-    }
-});
-
-app.Use(async (context, next) =>
-{
-    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-
-    logger.LogInformation($"{DateTime.Now}: Request: {context.Request.Method} {context.Request.Path}");
-
-    var originalBodyStream = context.Response.Body;
-    using (var responseBody = new MemoryStream())
-    {
-        context.Response.Body = responseBody;
-
-        await next();
-
-        responseBody.Seek(0, SeekOrigin.Begin);
-        var responseBodyText = new StreamReader(responseBody).ReadToEnd();
-        logger.LogInformation($"{DateTime.Now}: Response: {context.Response.StatusCode} {responseBodyText}");
-
-        responseBody.Seek(0, SeekOrigin.Begin);
-        await responseBody.CopyToAsync(originalBodyStream);
-    }
-});
-
-
-/*app.(async context =>
-{
-    var logger = context.RequestServices.GetRequiredService<ILogger<Program>>();
-    logger.LogInformation($"\n{DateTime.Now}: API started.");
-
-    try
-    {
-        var dbContext = context.RequestServices.GetRequiredService<ShopDbContext>();
-        await dbContext.Database.MigrateAsync();
-        logger.LogInformation("\nDatabase connection is successful.");
-    }
-    catch (Exception ex)
-    {
-        logger.LogError(ex, "Error connecting to the database.");
-    }
-});*/
+//Controllers
 app.MapControllers();
 
+logger.Info("API started");
 app.Run();

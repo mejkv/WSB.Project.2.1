@@ -1,0 +1,55 @@
+﻿<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
+              xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
+              name="ParagonTemplate" language="java" pageWidth="595" pageHeight="842" columnWidth="555"
+              leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d65b05ff-dc0b-4db1-9a2f-1204a9e3eae1">
+    <queryString language="SQL"/>
+    <field name="InvoiceNumber" class="java.lang.Integer"/>
+    <field name="CustomerName" class="java.lang.String"/>
+    <field name="TotalAmount" class="java.math.BigDecimal"/>
+    <field name="Devices" class="java.util.List"/>
+    <title>
+        <band height="79" splitType="Stretch">
+            <staticText>
+                <reportElement x="10" y="10" width="200" height="20" uuid="f0b33a05-c346-4a76-bf45-e006b004c9c5"/>
+                <textElement>
+                    <font size="14" isBold="true"/>
+                </textElement>
+                <text><![CDATA[Paragon]]></text>
+            </staticText>
+            <textField>
+                <reportElement x="10" y="30" width="300" height="20" uuid="f5db5f8c-002b-41da-a62c-ea5aa0736a53"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Nr paragonu: " + $F{InvoiceNumber}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="50" width="300" height="20" uuid="ec4f1a9e-4f26-4881-93ce-4f00126ac8a5"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Klient: " + $F{CustomerName}]]></textFieldExpression>
+            </textField>
+            <textField>
+                <reportElement x="10" y="70" width="300" height="20" uuid="28df9ea7-5d0d-475b-94c3-f152a34eb804"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Suma: " + $F{TotalAmount}]]></textFieldExpression>
+            </textField>
+        </band>
+    </title>
+    <detail>
+        <band height="20" splitType="Stretch">
+            <textField>
+                <reportElement x="10" y="0" width="300" height="20" uuid="6e609c5a-b067-4a3a-a8aa-1d967c55789d"/>
+                <textElement>
+                    <font size="12"/>
+                </textElement>
+                <textFieldExpression><![CDATA["Produkt: " + $F{Devices}]]></textFieldExpression>
+            </textField>
+        </band>
+    </detail>
+</jasperReport>

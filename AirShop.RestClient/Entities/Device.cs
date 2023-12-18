@@ -7,7 +7,7 @@ using System.Text;
 using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
-namespace AirShop.ExternalServices
+namespace AirShop.ExternalServices.Entities
 {
     public class Device
     {

@@ -1,3 +1,7 @@
+using AirShop.ExternalServices.Services;
+using AirShop.WebApp.ShopContext;
+using Microsoft.Extensions.Hosting.Internal;
+
 namespace AirShop.WebApp
 {
     public class Program
@@ -8,6 +12,13 @@ namespace AirShop.WebApp
 
             // Add services to the container.
             builder.Services.AddRazorPages();
+            builder.Services.AddScoped<ReceiptService>();
+            builder.Services.AddScoped<InvoiceTemplateService>();
+            builder.Services.AddHttpContextAccessor();
+
+            //singletons
+            builder.Services.AddSingleton<ShoppingCart>();
+            builder.Services.AddSingleton<ShopMainContext>();
 
             var app = builder.Build();
 

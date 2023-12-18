@@ -13,7 +13,7 @@ namespace AirShop.WebApiPostgre.Data.ShopDbContext
         public DbSet<Product> Products { get; set; }
         //public DbSet<Code> Codes { get; set; }
         //public DbSet<AccessRight> AccessRights { get; set; }
-        //public DbSet<User> Users { get; set; }
+        public DbSet<User> Users { get; set; }
         //public DbSet<Document> Documents { get; set; }
         public DbSet<Receipt> Receipts { get; set; }
         //public DbSet<ReceiptPosition> ReceiptPositions { get; set; }

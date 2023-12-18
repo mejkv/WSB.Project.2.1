@@ -10,10 +10,12 @@ namespace AirShop.WebApiPostgre.Controllers
     public class ProductsController : ControllerBase
     {
         private readonly ShopDbContext _context;
+        private readonly ILogger<ProductsController> _logger;
 
-        public ProductsController(ShopDbContext context)
+        public ProductsController(ShopDbContext context, ILogger<ProductsController> logger)
         {
             _context = context;
+            _logger = logger;
         }
 
         [HttpGet]
@@ -29,9 +31,11 @@ namespace AirShop.WebApiPostgre.Controllers
 
             if (product == null)
             {
+                _logger.LogError($"Not found product with ID: {id}");
                 return NotFound();
             }
 
+            _logger.LogInformation($"Product with ID: {id} - {product.Name}");
             return product;
         }
 

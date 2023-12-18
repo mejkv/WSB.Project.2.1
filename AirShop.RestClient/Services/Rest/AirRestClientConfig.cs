@@ -1,4 +1,4 @@
-﻿namespace AirShop.ExternalServices
+﻿namespace AirShop.ExternalServices.Services.Rest
 {
     public class AirRestClientConfig : IAirRestClientConfig
     {
