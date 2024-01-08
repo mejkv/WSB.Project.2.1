@@ -1,11 +1,10 @@
-﻿using AirShop.ExternalServices.Services;
-using AirShop.WebApiPostgre.Data.Models;
+﻿using AirShop.DataAccess.Data.Models;
 
 namespace AirShop.WebApp.ShopContext
 {
     public class ShoppingCart
     {
-        private List<Product> _cartItems;
+        private readonly List<Product> _cartItems;
         public ShoppingCart()
         {
             _cartItems = new List<Product>();
@@ -34,7 +33,7 @@ namespace AirShop.WebApp.ShopContext
 
         public int GetCartItemCount()
         {
-            return _cartItems.Count();
+            return _cartItems.Count;
         }
     }
 }

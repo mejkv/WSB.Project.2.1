@@ -10,6 +10,6 @@ namespace AirShop.ExternalServices.Services.Rest
 {
     public class AirRestResponse : RestResponse
     {
-        public IEnumerable<Device> Devices { get; set; }
+        public required IEnumerable<Device> Devices { get; set; }
     }
 }

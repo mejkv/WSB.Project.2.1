@@ -1,7 +1,11 @@
-﻿using AirShop.WebApiPostgre.Data.Models;
-using AirShop.WebApiPostgre.Data.ShopDbContext;
+﻿using AirShop.DataAccess.Data.Models;
+using AirShop.DataAccess.Data.ShopDbContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Logging;
+using System.Collections.Generic;
+using System.Linq;
+using System.Threading.Tasks;
 
 namespace AirShop.WebApiPostgre.Controllers
 {
@@ -40,12 +44,51 @@ namespace AirShop.WebApiPostgre.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> PostProduct(Product product)
+        public async Task<ActionResult<IEnumerable<Product>>> PostProducts(IEnumerable<Product> products)
         {
-            _context.Products.Add(product);
+            if (products == null || !products.Any())
+            {
+                _logger.LogError($"No products provided for creation.");
+                return BadRequest("No products provided for creation.");
+            }
+
+            _logger.LogInformation($"Start products import to database");
+            foreach (var product in products)
+            {
+                _logger.LogInformation($"Adding {product.ProductId} to database");
+
+                /*if (product.Code != null)
+                    product.Code.Product = product;*/
+
+                _context.Products.Add(product);
+
+                _logger.LogInformation($"Added {product.ProductId} to database");
+            }
+
+            await _context.SaveChangesAsync();
+            _logger.LogInformation($"End products import to database");
+
+            return CreatedAtAction(nameof(GetProducts), products);
+        }
+
+
+        [HttpPut("{id}")]
+        public async Task<IActionResult> ModifyProduct(int id, Product modifiedProduct)
+        {
+            var existingProduct = await _context.Products.FindAsync(id);
+
+            if (existingProduct == null)
+            {
+                _logger.LogError($"Not found product with ID: {id}");
+                return NotFound();
+            }
+
+            existingProduct.Name = modifiedProduct.Name;
+            // Modyfikuj inne właściwości według potrzeb
+
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetProduct), new { id = product.ProductId }, product);
+            return NoContent();
         }
     }
 }

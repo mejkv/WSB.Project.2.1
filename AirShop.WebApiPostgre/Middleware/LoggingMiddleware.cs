@@ -29,19 +29,19 @@ namespace AirShop.WebApiPostgre.Middleware
             switch (context.Response.StatusCode)
             {
                 case 200:
-                    _logger.LogInformation($"Response code {context.Response.StatusCode}");
+                    _logger.LogInformation($"Response code {context.Response.StatusCode}, {context.Response.HttpContext.Response.Body}");
                     break;
                 case 500:
-                    _logger.LogCritical($"Response code {context.Response.StatusCode}");
+                    _logger.LogCritical($"Response code {context.Response.StatusCode}, {context.Response.HttpContext.Response.Body}");
                     break;
                 case 502:
-                    _logger.LogError($"Response code {context.Response.StatusCode}");
+                    _logger.LogError($"Response code {context.Response.StatusCode}, {context.Response.HttpContext.Response.Body}");
                     break;
                 case 404:
-                    _logger.LogError($"Response code {context.Response.StatusCode}");
+                    _logger.LogError($"Response code {context.Response.StatusCode}, {context.Response.HttpContext.Response.Body}");
                     break;
                 default:
-                    _logger.LogDebug($"Response code {context.Response.StatusCode}");
+                    _logger.LogDebug($"Response code {context.Response.StatusCode}, {context.Response.HttpContext.Response.Body}");
                     break;
             }
             //_logger.LogInformation($"Response code {context.Response}");

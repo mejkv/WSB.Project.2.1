@@ -1,19 +1,25 @@
-﻿namespace AirShop.ExternalServices.Services
+﻿using Microsoft.Extensions.Configuration;
+using System.Configuration;
+using System.IO;
+
+namespace AirShop.ExternalServices.Services
 {
     public class InvoiceTemplateService
     {
+        private readonly IConfiguration _configuration;
+
+        public InvoiceTemplateService(IConfiguration configuration)
+        {
+            _configuration = configuration;
+        }
+
         public string LoadInvoiceTemplate()
         {
-            var templatePath = "C:\\Users\\fujit\\WSB.Project.2.1\\AirShop.RestClient\\Templates\\ReceiptTemplate.jrxml";
+            string templatePath = _configuration.GetValue<string>("TemplatePath") ?? throw new ConfigurationErrorsException("TemplatePath configuration value is missing.");
 
-            if (File.Exists(templatePath))
-            {
-                return File.ReadAllText(templatePath);
-            }
-            else
-            {
-                throw new FileNotFoundException($"Template file not found: {templatePath}");
-            }
+            templatePath = Path.Combine(Directory.GetCurrentDirectory(), templatePath);
+
+            return File.Exists(templatePath) ? File.ReadAllText(templatePath) : throw new FileNotFoundException($"Template file not found: {templatePath}");
         }
     }
 }

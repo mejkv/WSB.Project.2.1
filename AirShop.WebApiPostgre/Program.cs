@@ -1,13 +1,11 @@
+using AirShop.DataAccess.Data.Profiles;
+using AirShop.DataAccess.Data.ShopDbContext;
 using AirShop.WebApiPostgre.ApiServices;
-using AirShop.WebApiPostgre.Controllers;
-using AirShop.WebApiPostgre.Data.Profiles;
-using AirShop.WebApiPostgre.Data.ShopDbContext;
 using AirShop.WebApiPostgre.Middleware;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.Extensions.Hosting;
 using Microsoft.OpenApi.Models;
+using NLog;
 using NLog.Web;
-using System.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -16,16 +14,20 @@ builder.Logging.ClearProviders();
 builder.Logging.SetMinimumLevel(Microsoft.Extensions.Logging.LogLevel.Trace);
 builder.Host.UseNLog();
 string nlogConfigPath = Path.Combine(Directory.GetCurrentDirectory(), "Config", "nlog.config");
-NLogBuilder.ConfigureNLog(nlogConfigPath);
 builder.Logging.AddConfiguration(builder.Configuration.GetSection("Logging"));
-var logger = NLogBuilder.ConfigureNLog(nlogConfigPath).GetCurrentClassLogger();
 
+var logger = LogManager.Setup().LoadConfigurationFromFile(nlogConfigPath).GetCurrentClassLogger();
 //logs
 
 //configure AutoMapper
 builder.Services.AddAutoMapper(typeof(ProductsProfile));
 builder.Services.AddAutoMapper(typeof(ReceiptProfile));
 builder.Services.AddAutoMapper(typeof(UserProfile));
+builder.Services.AddAutoMapper(typeof(CodeProfile));
+builder.Services.AddAutoMapper(typeof(ReceiptPositionProfile));
+builder.Services.AddAutoMapper(typeof(ContractorProfile));
+builder.Services.AddAutoMapper(typeof(DocumentProfile));
+builder.Services.AddAutoMapper(typeof(DocumentPositionProfile));
 
 // configure service
 logger.Info("Starting services");

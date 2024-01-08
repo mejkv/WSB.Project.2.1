@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="UTF-8"?>
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports"
               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-              xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd"
               name="ParagonTemplate" language="java" pageWidth="595" pageHeight="842" columnWidth="555"
               leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d65b05ff-dc0b-4db1-9a2f-1204a9e3eae1">
     <queryString language="SQL"/>

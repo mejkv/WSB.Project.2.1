@@ -9,8 +9,8 @@ namespace AirShop.ExternalServices.Entities
     public class Receipt
     {
         public int InvoiceNumber { get; set; }
-        public string CustomerName { get; set; }
+        public required string CustomerName { get; set; }
         public decimal TotalAmount { get; set; }
-        public IList<Device> Devices { get; set; }
+        public required IList<Device> Devices { get; set; }
     }
 }

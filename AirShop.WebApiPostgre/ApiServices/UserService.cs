@@ -1,6 +1,7 @@
-﻿using AirShop.WebApiPostgre.Data.Models;
-using AirShop.WebApiPostgre.Data.Models.Requests;
-using AirShop.WebApiPostgre.Data.ShopDbContext;
+﻿using AirShop.DataAccess.Data.Models;
+using AirShop.DataAccess.Data.Models.Requests;
+using AirShop.DataAccess.Data.ShopDbContext;
+using AirShop.WebApiPostgre.Data.ApiExceptions;
 using AutoMapper;
 using Microsoft.EntityFrameworkCore;
 
@@ -20,7 +21,12 @@ namespace AirShop.WebApiPostgre.ApiServices
         public async Task<User> AuthenticateAsync(string username, string password)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
-            return user;
+            return user is null ? GetUserNotExistMessage() : user;
+        }
+
+        private User GetUserNotExistMessage()
+        {
+            throw new UserNotExistException();
         }
 
         public async Task<User> RegisterAsync(RegisterRequestModel model)
@@ -28,7 +34,7 @@ namespace AirShop.WebApiPostgre.ApiServices
             var existingUser = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == model.Username);
             if (existingUser != null)
             {
-                return null;
+                throw new UserNotExistException();
             }
 
             var newUser = new User() 

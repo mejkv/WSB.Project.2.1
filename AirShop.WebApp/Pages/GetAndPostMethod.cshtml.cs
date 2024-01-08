@@ -1,7 +1,8 @@
-﻿using AirShop.ExternalServices;
+﻿using AirShop.DataAccess.Data.Models;
+using AirShop.ExternalServices;
 using AirShop.ExternalServices.Services;
 using AirShop.ExternalServices.Services.Rest;
-using AirShop.WebApiPostgre.Data.Models;
+
 using AirShop.WebApp.ShopContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;

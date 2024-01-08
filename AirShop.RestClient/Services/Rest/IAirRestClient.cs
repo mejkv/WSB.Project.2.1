@@ -1,9 +1,4 @@
-﻿using AirShop.WebApiPostgre.Data.Models;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using AirShop.DataAccess.Data.Models;
 
 namespace AirShop.ExternalServices.Services.Rest
 {
