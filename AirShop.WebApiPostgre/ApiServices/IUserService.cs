@@ -1,5 +1,5 @@
-﻿using AirShop.WebApiPostgre.Data.Models;
-using AirShop.WebApiPostgre.Data.Models.Requests;
+﻿using AirShop.DataAccess.Data.Models;
+using AirShop.DataAccess.Data.Models.Requests;
 
 namespace AirShop.WebApiPostgre.ApiServices
 {

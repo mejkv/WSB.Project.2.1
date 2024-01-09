@@ -1,5 +1,4 @@
 ﻿using User = AirShop.ExternalServices.Entities.User;
-using AirShop.WebApiPostgre.Data.Models;
 
 namespace AirShop.WebApp.ShopContext
 {
@@ -7,6 +6,21 @@ namespace AirShop.WebApp.ShopContext
     {
         public bool IsUserLoggedIn { get; private set; }
         public User LoggedInUser { get; private set; }
+
+        public ShopMainContext()
+        {
+            IsUserLoggedIn = false;
+            LoggedInUser = new User()
+            {
+                Username = "guest",
+                Password = "guest"
+            };
+        }
+
+        public ShopMainContext(User loggedInUser)
+        {
+            LoggedInUser = loggedInUser;
+        }
 
         public void LogInUser(User user)
         {
@@ -17,7 +31,11 @@ namespace AirShop.WebApp.ShopContext
         public void LogOutUser()
         {
             IsUserLoggedIn = false;
-            LoggedInUser = null;
+            LoggedInUser = new User() 
+            {
+                Username = "guest",
+                Password = "guest"
+            };
         }
     }
 }

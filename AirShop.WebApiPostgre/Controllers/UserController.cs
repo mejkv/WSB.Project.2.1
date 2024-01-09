@@ -1,6 +1,5 @@
-﻿using AirShop.WebApiPostgre.ApiServices;
-using AirShop.WebApiPostgre.Data.Models.Requests;
-using AirShop.WebApiPostgre.Data.ShopDbContext;
+﻿using AirShop.DataAccess.Data.Models.Requests;
+using AirShop.WebApiPostgre.ApiServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirShop.WebApiPostgre.Controllers
@@ -10,12 +9,10 @@ namespace AirShop.WebApiPostgre.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
-        private readonly ShopDbContext _context;
 
-        public UserController(IUserService userService, ShopDbContext context)
+        public UserController(IUserService userService)
         {
             _userService = userService;
-            _context = context;
         }
 
         [HttpPost("login")]

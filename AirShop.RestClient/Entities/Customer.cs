@@ -1,15 +1,62 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace AirShop.ExternalServices.Entities
 {
     public class Customer
     {
-        public string Name { get; set; }
-        public string FirstName { get; set; }
-        public string LastName { get; set; }
+        private string _name; 
+        private string _firstName; 
+        private string _lastName;
+
+        public string Name
+        {
+            get => _name;
+            set
+            {
+                _name = value;
+                if (string.IsNullOrWhiteSpace(_name))
+                {
+                    _name = _firstName + _lastName;
+                }
+            }
+        }
+
+        public string FirstName
+        {
+            get => _firstName;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    _firstName = value;
+                }
+            }
+        }
+
+        public string LastName
+        {
+            get => _lastName;
+            set
+            {
+                if (string.IsNullOrWhiteSpace(Name))
+                {
+                    _lastName = value;
+                }
+            }
+        }
+
+        public Customer()
+        {
+            _name = string.Empty;
+            _firstName = string.Empty;
+            _lastName = string.Empty;
+        }
+
+        public Customer(string name, string firstName, string lastName)
+        {
+            _name = name;
+            _firstName = firstName;
+            _lastName = lastName;
+        }
     }
 }

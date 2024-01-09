@@ -4,12 +4,17 @@
     ViewData["Title"] = "Home page";
 }
 
-@if (!(bool)ViewData["IsUserLoggedIn"])
+@{
+    var isUserLoggedIn = ViewData["IsUserLoggedIn"] as bool? ?? false;
+    var loggedInUserName = ViewData["LoggedInUserName"] as string ?? string.Empty;
+}
+
+@if (!isUserLoggedIn)
 {
     <p>You are not logged in. <a asp-page="/LoginModel">Log in</a></p>
 }
 else
 {
-    <p>Welcome, @((string)ViewData["LoggedInUserName"])! <a asp-page="/Logout">Log out</a></p>
+    <p>Welcome, @loggedInUserName! <a asp-page="/Logout">Log out</a></p>
 }
 

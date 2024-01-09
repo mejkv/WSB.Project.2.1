@@ -1,31 +1,34 @@
-﻿using AirShop.WebApiPostgre.Data.ShopDbContext;
+﻿using AirShop.DataAccess.Data.ShopDbContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
-[ApiController]
-[Route("api/health")]
-public class HealthController : ControllerBase
+namespace AirShop.WebApiPostgre.Controllers
 {
-    private readonly ShopDbContext dbContext;
-
-    public HealthController(ShopDbContext dbContext)
+    [ApiController]
+    [Route("api/health")]
+    public class HealthController : ControllerBase
     {
-        this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
-    }
+        private readonly ShopDbContext dbContext;
 
-    [HttpGet]
-    public IActionResult CheckHealth()
-    {
-        try
+        public HealthController(ShopDbContext dbContext)
         {
-            dbContext.Database.OpenConnection();
-            dbContext.Database.CloseConnection();
-
-            return Ok(new { Status = "Healthy", Message = "Database connection is successful." });
+            this.dbContext = dbContext ?? throw new ArgumentNullException(nameof(dbContext));
         }
-        catch (Exception ex)
+
+        [HttpGet]
+        public IActionResult CheckHealth()
         {
-            return StatusCode(500, new { Status = "Unhealthy", Message = $"Error connecting to the database: {ex.Message}" });
+            try
+            {
+                dbContext.Database.OpenConnection();
+                dbContext.Database.CloseConnection();
+
+                return Ok(new { Status = "Healthy", Message = "Database connection is successful." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, new { Status = "Unhealthy", Message = $"Error connecting to the database: {ex.Message}" });
+            }
         }
     }
 }

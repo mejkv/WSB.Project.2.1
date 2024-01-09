@@ -1,47 +1,49 @@
-﻿using AirShop.WebApiPostgre.Data.Models;
-using AirShop.WebApiPostgre.Data.ShopDbContext;
+﻿using AirShop.DataAccess.Data.Models;
+using AirShop.DataAccess.Data.ShopDbContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
+using System.Threading.Tasks;
 
 namespace AirShop.WebApiPostgre.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class ReceiptController : ControllerBase
+    public class DocumentController : ControllerBase
     {
         private readonly ShopDbContext _context;
 
-        public ReceiptController(ShopDbContext context)
+        public DocumentController(ShopDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Receipt>>> GetReceipts()
+        public async Task<ActionResult<IEnumerable<Document>>> GetDocuments()
         {
-            return await _context.Receipts.ToListAsync();
+            return await _context.Documents.ToListAsync();
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Receipt>> GetReceipt(int id)
+        public async Task<ActionResult<Document>> GetDocument(int id)
         {
-            var receipt = await _context.Receipts.FindAsync(id);
+            var document = await _context.Documents.FindAsync(id);
 
-            if (receipt == null)
+            if (document == null)
             {
                 return NotFound();
             }
 
-            return receipt;
+            return document;
         }
 
         [HttpPost]
-        public async Task<ActionResult<Receipt>> PostReceipt(Receipt receipt)
+        public async Task<ActionResult<Document>> PostDocument(Document document)
         {
-            _context.Receipts.Add(receipt);
+            _context.Documents.Add(document);
             await _context.SaveChangesAsync();
 
-            return CreatedAtAction(nameof(GetReceipt), new { id = receipt.ReceiptId }, receipt);
+            return CreatedAtAction(nameof(GetDocument), new { id = document.DocumentId }, document);
         }
     }
 }

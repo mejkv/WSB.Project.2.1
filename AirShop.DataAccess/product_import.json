@@ -1,0 +1,377 @@
+[
+  {
+    "productId": 1,
+    "name": "AirPhone X",
+    "value": 800,
+    "vat": 23,
+    "price": 984,
+    "discount": 10,
+    "code": {
+      "id": 101,
+      "productId": 1,
+      "ean": "12345670",
+      "product": "AirPhone X"
+    },
+    "productType": 1
+  },
+  {
+    "productId": 2,
+    "name": "AirTab Pro",
+    "value": 600,
+    "vat": 23,
+    "price": 738,
+    "discount": 5,
+    "code": {
+      "id": 102,
+      "productId": 2,
+      "ean": "23456780",
+      "product": "AirTab Pro"
+    },
+    "productType": 2
+  },
+  {
+    "productId": 3,
+    "name": "AirWatch Elite",
+    "value": 400,
+    "vat": 23,
+    "price": 492,
+    "discount": 15,
+    "code": {
+      "id": 103,
+      "productId": 3,
+      "ean": "34567890",
+      "product": "AirWatch Elite"
+    },
+    "productType": 3
+  },
+  {
+    "productId": 4,
+    "name": "AirBook Ultra",
+    "value": 1200,
+    "vat": 23,
+    "price": 1476,
+    "discount": 8,
+    "code": {
+      "id": 104,
+      "productId": 4,
+      "ean": "45678901",
+      "product": "AirBook Ultra"
+    },
+    "productType": 4
+  },
+  {
+    "productId": 5,
+    "name": "AirPods Pro",
+    "value": 250,
+    "vat": 23,
+    "price": 307.5,
+    "discount": 12,
+    "code": {
+      "id": 105,
+      "productId": 5,
+      "ean": "56789012",
+      "product": "AirPods Pro"
+    },
+    "productType": 5
+  },
+  {
+    "productId": 6,
+    "name": "AirGlass Vision",
+    "value": 300,
+    "vat": 23,
+    "price": 369,
+    "discount": 7,
+    "code": {
+      "id": 106,
+      "productId": 6,
+      "ean": "67890123",
+      "product": "AirGlass Vision"
+    },
+    "productType": 6
+  },
+  {
+    "productId": 7,
+    "name": "AirPhone 11",
+    "value": 700,
+    "vat": 23,
+    "price": 861,
+    "discount": 10,
+    "code": {
+      "id": 107,
+      "productId": 7,
+      "ean": "78901234",
+      "product": "AirPhone 11"
+    },
+    "productType": 1
+  },
+  {
+    "productId": 8,
+    "name": "AirTab Lite",
+    "value": 400,
+    "vat": 23,
+    "price": 492,
+    "discount": 5,
+    "code": {
+      "id": 108,
+      "productId": 8,
+      "ean": "123456789012",
+      "product": "AirTab Lite"
+    },
+    "productType": 2
+  },
+  {
+    "productId": 9,
+    "name": "AirWatch Pro",
+    "value": 500,
+    "vat": 23,
+    "price": 615,
+    "discount": 12,
+    "code": {
+      "id": 109,
+      "productId": 9,
+      "ean": "234567890123",
+      "product": "AirWatch Pro"
+    },
+    "productType": 3
+  },
+  {
+    "productId": 10,
+    "name": "AirBook Standard",
+    "value": 1000,
+    "vat": 23,
+    "price": 1230,
+    "discount": 8,
+    "code": {
+      "id": 110,
+      "productId": 10,
+      "ean": "345678901234",
+      "product": "AirBook Standard"
+    },
+    "productType": 4
+  },
+  {
+    "productId": 11,
+    "name": "AirPods Lite",
+    "value": 150,
+    "vat": 23,
+    "price": 184.5,
+    "discount": 15,
+    "code": {
+      "id": 111,
+      "productId": 11,
+      "ean": "456789012345",
+      "product": "AirPods Lite"
+    },
+    "productType": 5
+  },
+  {
+    "productId": 12,
+    "name": "AirGlass Pro",
+    "value": 400,
+    "vat": 23,
+    "price": 492,
+    "discount": 7,
+    "code": {
+      "id": 112,
+      "productId": 12,
+      "ean": "567890123456",
+      "product": "AirGlass Pro"
+    },
+    "productType": 6
+  },
+  {
+    "productId": 13,
+    "name": "AirPhone SE",
+    "value": 600,
+    "vat": 23,
+    "price": 738,
+    "discount": 10,
+    "code": {
+      "id": 113,
+      "productId": 13,
+      "ean": "678901234567",
+      "product": "AirPhone SE"
+    },
+    "productType": 1
+  },
+  {
+    "productId": 14,
+    "name": "AirTab Max",
+    "value": 800,
+    "vat": 23,
+    "price": 984,
+    "discount": 5,
+    "code": {
+      "id": 114,
+      "productId": 14,
+      "ean": "789012345678",
+      "product": "AirTab Max"
+    },
+    "productType": 2
+  },
+  {
+    "productId": 15,
+    "name": "AirWatch Lite",
+    "value": 300,
+    "vat": 23,
+    "price": 369,
+    "discount": 15,
+    "code": {
+      "id": 115,
+      "productId": 15,
+      "ean": "901234567890",
+      "product": "AirWatch Lite"
+    },
+    "productType": 3
+  },
+  {
+    "productId": 16,
+    "name": "AirBook Pro",
+    "value": 1500,
+    "vat": 23,
+    "price": 1845,
+    "discount": 8,
+    "code": {
+      "id": 116,
+      "productId": 16,
+      "ean": "0123456789012",
+      "product": "AirBook Pro"
+    },
+    "productType": 4
+  },
+  {
+    "productId": 17,
+    "name": "AirPods Max",
+    "value": 350,
+    "vat": 23,
+    "price": 430.5,
+    "discount": 12,
+    "code": {
+      "id": 117,
+      "productId": 17,
+      "ean": "1234567890123",
+      "product": "AirPods Max"
+    },
+    "productType": 5
+  },
+  {
+    "productId": 18,
+    "name": "AirGlass Lite",
+    "value": 200,
+    "vat": 23,
+    "price": 246,
+    "discount": 7,
+    "code": {
+      "id": 118,
+      "productId": 18,
+      "ean": "2345678901234",
+      "product": "AirGlass Lite"
+    },
+    "productType": 6
+  },
+  {
+    "productId": 19,
+    "name": "AirPhone 12",
+    "value": 900,
+    "vat": 23,
+    "price": 1107,
+    "discount": 10,
+    "code": {
+      "id": 119,
+      "productId": 19,
+      "ean": "3456789012345",
+      "product": "AirPhone 12"
+    },
+    "productType": 1
+  },
+  {
+    "productId": 20,
+    "name": "AirTab Standard",
+    "value": 500,
+    "vat": 23,
+    "price": 615,
+    "discount": 5,
+    "code": {
+      "id": 120,
+      "productId": 20,
+      "ean": "4567890123456",
+      "product": "AirTab Standard"
+    },
+    "productType": 2
+  },
+  {
+    "productId": 21,
+    "name": "AirWatch Max",
+    "value": 700,
+    "vat": 23,
+    "price": 861,
+    "discount": 12,
+    "code": {
+      "id": 121,
+      "productId": 21,
+      "ean": "5678901234567",
+      "product": "AirWatch Max"
+    },
+    "productType": 3
+  },
+  {
+    "productId": 22,
+    "name": "AirBook Lite",
+    "value": 800,
+    "vat": 23,
+    "price": 984,
+    "discount": 8,
+    "code": {
+      "id": 122,
+      "productId": 22,
+      "ean": "6789012345678",
+      "product": "AirBook Lite"
+    },
+    "productType": 4
+  },
+  {
+    "productId": 23,
+    "name": "AirPods Ultra",
+    "value": 300,
+    "vat": 23,
+    "price": 369,
+    "discount": 15,
+    "code": {
+      "id": 123,
+      "productId": 23,
+      "ean": "7890123456789",
+      "product": "AirPods Ultra"
+    },
+    "productType": 5
+  },
+  {
+    "productId": 24,
+    "name": "AirGlass Pro Max",
+    "value": 500,
+    "vat": 23,
+    "price": 615,
+    "discount": 7,
+    "code": {
+      "id": 124,
+      "productId": 24,
+      "ean": "9012345678901",
+      "product": "AirGlass Pro Max"
+    },
+    "productType": 6
+  },
+  {
+    "productId": 25,
+    "name": "AirPhone SE Lite",
+    "value": 400,
+    "vat": 23,
+    "price": 492,
+    "discount": 10,
+    "code": {
+      "id": 125,
+      "productId": 25,
+      "ean": "12345670",
+      "product": "AirPhone SE Lite"
+    },
+    "productType": 1
+  }
+]

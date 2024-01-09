@@ -1,6 +1,7 @@
 ﻿using AirShop.WebApp.ShopContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
+using Microsoft.Extensions.Logging;
 
 namespace AirShop.WebApp.Pages
 {
@@ -18,6 +19,8 @@ namespace AirShop.WebApp.Pages
         public void OnGet()
         {
             ViewData["IsUserLoggedIn"] = _shopMainContext.IsUserLoggedIn;
+            _logger.LogInformation("Is user logged? Result: "+_shopMainContext.IsUserLoggedIn.ToString());
+
             ViewData["LoggedInUserName"] = _shopMainContext.LoggedInUser?.Username;
         }
     }

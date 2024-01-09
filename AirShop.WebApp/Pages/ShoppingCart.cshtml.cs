@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using AirShop.ExternalServices.Services;
-using AirShop.WebApiPostgre.Data.Models;
+
 using AirShop.WebApp.ShopContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -56,7 +56,7 @@ namespace AirShop.WebApp.Pages
     public class ShoppingCartItem
     {
         public int ProductId { get; set; }
-        public string ProductName { get; set; }
+        public required string ProductName { get; set; }
         public decimal Price { get; set; }
     }
 }
