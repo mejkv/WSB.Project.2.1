@@ -7,6 +7,8 @@
     <UserSecretsId>cff57588-4a68-4afe-900a-9ebfc9548ee9</UserSecretsId>
   </PropertyGroup>
 
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
+  <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.14" />
@@ -20,4 +22,10 @@
     <ProjectReference Include="..\AirShop.WebApiPostgre\AirShop.WebApiPostgre.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Content Remove="wwwroot\css\style1.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\css\style1.css" />
+  </ItemGroup>
 </Project>
