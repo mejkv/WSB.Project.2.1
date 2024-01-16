@@ -9,7 +9,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirShop.WebApp", "AirShop.W
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirShop.ExternalServices", "AirShop.RestClient\AirShop.ExternalServices.csproj", "{24145A98-FF4B-47CB-80B7-5E48F7F3490D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AirShop.DataAccess", "AirShop.DataAccess\AirShop.DataAccess.csproj", "{D3443234-AD50-4C32-B0FD-0CEBDA759C65}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "AirShop.DataAccess", "AirShop.DataAccess\AirShop.DataAccess.csproj", "{D3443234-AD50-4C32-B0FD-0CEBDA759C65}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

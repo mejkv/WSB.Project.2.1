@@ -66,3 +66,15 @@ Wyświetla informacje dotyczące DbContext, takie jak podłączona baza danych, 
 
 -dotnet ef migrations list
 Lista dostepnych migracji i ich stan
+
+====================================
+Docker - dodanie zdjecia na kontener
+tworzymy folder images na dockerze:
+-docker exec -it [nazwa_kontenera] bash
+-mkdir images
+docker cp lokalna-sciezka/airglass.png nazwa-kontenera:/sciezka-wewnatrz-kontenera/
+
+updaty w bazie:
+UPDATE "Products" SET "Image" = 'http://localhost:5432/tmp/images/AirPhonePro.png' WHERE "Name" = 'AirPhone Pro';
+UPDATE "Products" SET "Image" = 'http://localhost:5432/tmp/images/AirPhoneMini.png' WHERE "Name" = 'AirPhone Mini';
+

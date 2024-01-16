@@ -19,5 +19,7 @@ namespace AirShop.WebApiPostgre.Data.Entities
         public CodeDto? Code { get; set; }
 
         public ProductType ProductType { get; set; }
+        
+        public string Image { get; set; }
     }
 }

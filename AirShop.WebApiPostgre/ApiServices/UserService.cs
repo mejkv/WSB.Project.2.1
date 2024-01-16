@@ -21,12 +21,12 @@ namespace AirShop.WebApiPostgre.ApiServices
         public async Task<User> AuthenticateAsync(string username, string password)
         {
             var user = await _dbContext.Users.FirstOrDefaultAsync(u => u.Username == username && u.Password == password);
-            return user is null ? GetUserNotExistMessage() : user;
+            return user is null ? GetUserNotExistMessage(user.Username) : user;
         }
 
-        private User GetUserNotExistMessage()
+        private User GetUserNotExistMessage(string username)
         {
-            throw new UserNotExistException();
+            throw new UserNotExistException($"User {username}: Wrong username or password", innerException: new Exception());
         }
 
         public async Task<User> RegisterAsync(RegisterRequestModel model)

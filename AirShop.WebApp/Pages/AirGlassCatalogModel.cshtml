@@ -1,0 +1,61 @@
+﻿@page
+@model AirShop.WebApp.Pages.AirGlassCatalogModelModel
+@{
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>AirShop Catalog</title>
+    <link rel="stylesheet" href="~/css/sklep.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/style1.css" asp-append-version="true">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon" />
+</head>
+<body>
+
+    <!--ShoppingCart icon, trzeba dodac gdzies tutaj ikone z koszykiem-->
+
+    <section class="shop" id="shop">
+        <div class="container">
+            @foreach (var product in Model.Products)
+            {
+                if (product.ProductType == DataAccess.Data.Models.ProductType.AirGlass)
+                {
+                    <div class="box">
+                        <!--<img src="">-->
+                        <h4>@product.Name</h4>
+                        <h5>@product.Price$</h5>
+                        <button class="addToCart" onclick="addToCart(@product.ProductId)">
+                            Dodaj do koszyka
+                        </button>
+                    </div>
+                }
+            }
+        </div>
+    </section>
+
+    <script>
+        async function FetchProducts() {
+            try {
+                // Call your C# method to get the products
+                //var products = await DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'GetProducts');
+
+                // Add products to the table
+                //products.forEach(product => AddProductToTable(product));
+            } catch (error) {
+                console.error('Error:', error);
+            }
+        }     
+    </script>
+     <script>
+    function addToCart(productId, event) {
+    event.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
+
+    // Wywołaj metodę AddToCart z modelu
+    DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'AddToCart', productId);
+
+    </script>
+</body>
+</html>

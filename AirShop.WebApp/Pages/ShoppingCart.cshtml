@@ -1,34 +1,67 @@
 ﻿@page
-@model ShoppingCartModel
+@model AirShop.WebApp.Pages.ShoppingCartModel
 @{
     ViewData["Title"] = "Shopping Cart";
 }
 
-<h1>@ViewData["Title"]</h1>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Blazoner Product Management - Shopping Cart</title>
+    <link rel="stylesheet" href="~/css/sklep.css" asp-append-version="true" />
+</head>
+<body>
 
-<table class="table">
-    <thead>
-        <tr>
-            <th>Product</th>
-            <th>Price</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model.ShoppingCartItems)
-        {
-            <tr>
-                <td>@item.ProductName</td>
-                <td>@item.Price.ToString("C")</td>
-            </tr>
+    <nav>
+        <ul>
+            <li><button onclick="openSidebar()">Shopping Cart</button></li>
+        </ul>
+    </nav>
+
+    @*<div class="sidebar" id="sidebar">
+        <ul>
+            @foreach (var item in Model.CartItems)
+            {
+                <li>
+                    <h4>@item.ProductName</h4>
+                    <p>@item.Price$</p>
+                    <button onclick="removeFromCart('@item.ProductId')">Remove</button>
+                </li>
+            }
+        </ul>
+    </div>
+
+    <section class="shop" id="shop">
+        <div class="container">
+            @foreach (var product in Model.Products)
+            {
+                <div class="box">
+                    <h4>@product.Name</h4>
+                    <h5>@product.Price$</h5>
+                    <button class="addToCart" onclick="addToCart('@product.ProductId')">Add to Cart</button>
+                </div>
+            }
+        </div>
+    </section>*@
+
+    <script>
+        function openSidebar() {
+            var sidebar = document.getElementById("sidebar");
+            sidebar.style.display = "flex";
         }
-    </tbody>
-</table>
 
-<p>Total: @Model.TotalPrice.ToString("C")</p>
+        function addToCart(productId) {
+            // Call your C# method to add the product to the cart
+            DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'AddToCart', productId);
+        }
 
-<td>
-    <form method="post">
-        <input type="hidden" name="products" value="@Model.ShoppingCartItems" />
-        <button type="submit" asp-page-handler="ProceedCheckout">Proceed to Checkout</button>
-    </form>
-</td>
+        function removeFromCart(productId) {
+            // Call your C# method to remove the product from the cart
+            DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'RemoveFromCart', productId);
+        }
+    </script>
+
+</body>
+</html>

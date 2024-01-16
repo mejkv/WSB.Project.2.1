@@ -19,10 +19,7 @@ namespace AirShop.DataAccess.Data.Models
         public Code? Code { get; set; }
 
         public ProductType ProductType { get; set; }
-    }
 
-    public class ProductList
-    {
-        public List<Product> Products { get; set;}
+        public string Image { get; set; }
     }
 }
