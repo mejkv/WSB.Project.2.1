@@ -7,10 +7,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <None Remove="Templates\ReceiptTemplate.jrxml" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="itext7" Version="8.0.2" />
     <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
@@ -22,10 +18,6 @@
 
   <ItemGroup>
     <ProjectReference Include="..\AirShop.WebApiPostgre\AirShop.WebApiPostgre.csproj" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <EmbeddedResource Include="Templates\ReceiptTemplate.jrxml" />
   </ItemGroup>
 
 </Project>

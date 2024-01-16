@@ -6,6 +6,6 @@ namespace AirShop.ExternalServices.Interfaces
 {
     public interface IReceiptService
     {
-        Receipt ReturnUserReceipt(List<Product> products);
+        Receipt ReturnUserReceipt(List<Product> products, Customer customer);
     }
 }

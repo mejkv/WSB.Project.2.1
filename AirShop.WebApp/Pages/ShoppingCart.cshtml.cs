@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using AirShop.DataAccess.Data.Models;
 using AirShop.ExternalServices.Services;
 using AirShop.WebApp.ShopContext;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +34,7 @@ namespace AirShop.WebApp.Pages
                     ProductId = product.ProductId,
                     ProductName = product.Name,
                     Price = product.Price,
+                    SourceProduct = product,
                 };
                 ShoppingCartItems.Add(item);
             }
@@ -40,7 +42,7 @@ namespace AirShop.WebApp.Pages
             TotalPrice = ShoppingCartItems.Sum(item => item.Price);
         }
 
-        public IActionResult OnPostProceedCheckout()
+        /*public IActionResult OnPostProceedCheckout()
         {
             try
             {
@@ -51,7 +53,7 @@ namespace AirShop.WebApp.Pages
             {
                 return new JsonResult(new { success = false, error = ex.Message });
             }
-        }
+        }*/
     }
 
     public class ShoppingCartItem
@@ -59,5 +61,6 @@ namespace AirShop.WebApp.Pages
         public int ProductId { get; set; }
         public string ProductName { get; set; }
         public decimal Price { get; set; }
+        public Product SourceProduct { get; set; }
     }
 }

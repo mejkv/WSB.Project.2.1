@@ -41,11 +41,6 @@ namespace AirShop.WebApiPostgre.Controllers
         {
             var user = await _userService.RegisterAsync(registerModel);
 
-            if (user == null)
-            {
-                return BadRequest();
-            }
-
             return Ok(user);
         }
     }

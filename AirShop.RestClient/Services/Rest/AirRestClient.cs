@@ -46,7 +46,7 @@ namespace AirShop.ExternalServices.Services.Rest
             var jsonBody = JsonConvert.SerializeObject(loginRequest);
             request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
 
-            var result = client.Execute<IEnumerable<User>>(request);
+            var result = client.Execute<User>(request);
 
             if (!result.IsSuccessful)
                 throw new RestClientException($"RestClient error({result.StatusCode}): {result.Content}", result.StatusCode, GetNotNullErrorMessage(result.ErrorMessage));

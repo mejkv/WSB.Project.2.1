@@ -20,6 +20,45 @@
         </ul>
     </nav>
 
+    <section class="cart" id="cart">
+        <div class="container">
+            <!-- Produkty w koszyku -->
+            @foreach (var itemGroup in Model.ShoppingCartItems.GroupBy(x => x.ProductId))
+            {
+                var item = itemGroup.FirstOrDefault();
+
+                if (item is null)
+                    break;
+
+                <div class="cart-item">
+                    <div class="item-image">
+                        <img src="@Url.Content(item.SourceProduct.Image)">
+                    </div>
+                    <div class="item-details">
+                        <h4>@item.ProductName</h4>
+                        <div class="quantity">
+                            <button class="quantity-btn" onclick="decreaseQuantity(@item.ProductId)">-</button>
+                            <span>@Model.ShoppingCartItems.Count(c => c.ProductId == item.ProductId)</span>
+                            <button class="quantity-btn" onclick="increaseQuantity(@item.ProductId)">+</button>
+                        </div>
+                    </div>
+                    <div class="item-price">
+                        @itemGroup.Sum(ig => ig.Price).ToString("C") 
+                    </div>
+                </div>
+            }
+
+            <!-- Podsumowanie koszyka -->
+            <div class="cart-summary">
+                <h3>Summary</h3>
+                <div class="total">
+                    <span>Total:</span>
+                    <span>@Model.TotalPrice.ToString("C")</span>
+                </div>
+                <li><button type="button" onclick="location.href='@Url.Page("/CheckoutPage")'">Checkout</button></li>
+            </div>
+        </div>
+    </section>
     @*<div class="sidebar" id="sidebar">
         <ul>
             @foreach (var item in Model.CartItems)

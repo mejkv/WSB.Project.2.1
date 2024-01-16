@@ -1,0 +1,132 @@
+﻿@page
+@model CheckoutPageModel
+@{
+}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Checkout</title>
+    <link rel="stylesheet" href="~/css/checkout.css" asp-append-version="true" />
+</head>
+<body>
+
+    <section class="checkout" id="checkout">
+        <div class="container">
+            <h2>Checkout</h2>
+            <form method="post">
+                <div class="form-group">
+                    <label for="FirstName">First Name:</label>
+                    <input type="text" id="FirstName" name="FirstName" asp-for="CheckoutInput.FirstName" />
+                    <span asp-validation-for="CheckoutInput.FirstName"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="LastName">Last Name:</label>
+                    <input type="text" id="LastName" name="LastName" asp-for="CheckoutInput.LastName" />
+                    <span asp-validation-for="CheckoutInput.LastName"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Email">Email:</label>
+                    <input type="text" id="Email" name="Email" asp-for="CheckoutInput.Email" />
+                    <span asp-validation-for="CheckoutInput.Email"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="Street">Street:</label>
+                    <input type="text" id="Street" name="Street" asp-for="CheckoutInput.Street" />
+                    <span asp-validation-for="CheckoutInput.Street"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="City">City:</label>
+                    <input type="text" id="City" name="City" asp-for="CheckoutInput.City" />
+                    <span asp-validation-for="CheckoutInput.City"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="HouseNumber">House Number:</label>
+                    <input type="text" id="HouseNumber" name="HouseNumber" asp-for="CheckoutInput.HouseNumber" />
+                    <span asp-validation-for="CheckoutInput.HouseNumber"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ApartmentNumber">Apartment Number:</label>
+                    <input type="text" id="ApartmentNumber" name="ApartmentNumber" asp-for="CheckoutInput.ApartmentNumber" />
+                    <span asp-validation-for="CheckoutInput.ApartmentNumber"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="ZipCode">Zip Code:</label>
+                    <input type="text" id="ZipCode" name="ZipCode" asp-for="CheckoutInput.ZipCode" />
+                    <span asp-validation-for="CheckoutInput.ZipCode"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" asp-for="CheckoutInput.GenerateInvoice" />
+                        Chcę fakturę
+                    </label>
+                    <span asp-validation-for="CheckoutInput.GenerateInvoice"></span>
+                </div>
+
+                <div class="form-group">
+                    <label>
+                        <input type="checkbox" asp-for="CheckoutInput.IsCompany" />
+                        Faktura dla firmy
+                    </label>
+                    <span asp-validation-for="CheckoutInput.IsCompany"></span>
+                </div>
+
+                <div class="form-group">
+                    <label for="NIP">NIP:</label>
+                    <input type="text" id="NIP" name="NIP" asp-for="CheckoutInput.NIP" />
+                    <span asp-validation-for="CheckoutInput.NIP"></span>
+                </div>
+
+                <button type="submit">Realizuj/Zapłać</button>
+            </form>
+
+
+        </div>
+    </section>
+
+    @section Scripts {
+        <script>
+            async function handleCheckout(event) {
+                event.preventDefault(); // Zatrzymuje domyślne zachowanie formularza (odświeżanie strony)
+
+                var url = '@Url.Page("/CheckoutPage", "OnPost")';
+
+                // Pobieramy dane z formularza
+                var formData = new FormData(document.querySelector('form'));
+                var checkoutData = {};
+                formData.forEach((value, key) => {
+                    checkoutData[key] = value;
+                });
+
+                // Wywołujemy metodę OnPost z modelu CheckoutPageModel za pomocą JavaScript
+                const response = await fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(checkoutData)
+                });
+
+                if (response.ok) {
+                    // Pomyślna odpowiedź, możesz np. wyświetlić potwierdzenie lub przekierować użytkownika
+                    console.log('Zamówienie zrealizowane pomyślnie!');
+                } else {
+                    // Obsługujemy błąd, np. wyświetlamy komunikat o niepowodzeniu
+                    console.error('Błąd podczas realizacji zamówienia');
+                }
+            }
+        </script>
+    }
+</body>
+</html>
