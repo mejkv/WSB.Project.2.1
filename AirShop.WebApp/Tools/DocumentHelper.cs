@@ -17,41 +17,47 @@ namespace AirShop.WebApp.Tools
         public Document GenerateInvoice(CheckoutInputModel checkoutInput, List<Product> orderedProducts)
         {
             if (checkoutInput == null || orderedProducts == null)
-            {
                 throw new ArgumentNullException(nameof(checkoutInput));
-            }
 
-            // Utwórz obiekt Document
             var document = new Document
             {
                 User = _context.LoggedInUser,
                 CreationTime = DateTime.Now,
-                DocumentPositions = GenerateDocumentPositions(orderedProducts, checkoutInput.GenerateInvoice)
-                // Dodaj inne pola związane z dokumentem zgodnie z potrzebą
+                DocumentPositions = GenerateDocumentPositions(orderedProducts, checkoutInput.GenerateInvoice),
             };
 
-            // Jeśli generujemy fakturę, dodaj informacje o kontrahencie
+            document.DocumentPositions.ForEach(dp => dp.Document = document);
             document.Customer = GetCustomer(checkoutInput);
+
             if (checkoutInput.IsCompany)
-            {
                 document.Customer.Nip = checkoutInput.NIP;
-            }
 
             return document;
         }
 
         private List<DocumentPosition> GenerateDocumentPositions(List<Product> orderedProducts, bool generateInvoice)
         {
-            // Utwórz listę pozycji dokumentu na podstawie zamówionych produktów
-            var documentPositions = orderedProducts.Select(product => new DocumentPosition
-            {
-                ProductId = product.ProductId,
-                Quantity = 1, // Zakładam, że każdy produkt ma ilość równą 1
-                UnitPrice = product.Price,
-                TotalPrice = product.Price // Zakładam, że każda pozycja ma cenę równą cenie jednostkowej
-            }).ToList();
+            var productsGroupById = orderedProducts.GroupBy(p => p.ProductId);
+            var documentPostionList = new List<DocumentPosition>();
 
-            return documentPositions;
+            foreach (var productsGroup in productsGroupById)
+            {
+                documentPostionList.Add(CreateDocumentPosition(productsGroup));   
+            }
+
+            return documentPostionList;
+        }
+
+        private DocumentPosition CreateDocumentPosition(IGrouping<int, Product> productsGroup)
+        {
+            return new DocumentPosition()
+            {
+                ProductId = productsGroup.Key,
+                Product = productsGroup.FirstOrDefault(),
+                Quantity = productsGroup.Count(),
+                UnitPrice = productsGroup.FirstOrDefault().Price,
+                TotalPrice = productsGroup.Sum(p => p.Price),
+            };
         }
 
         public Customer GetCustomer(CheckoutInputModel checkoutInput)

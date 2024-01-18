@@ -7,13 +7,24 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Font\arial.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <EmbeddedResource Include="Font\arial.ttf" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="itext7" Version="8.0.2" />
     <PackageReference Include="itext7.bouncy-castle-adapter" Version="8.0.2" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="PDFsharp" Version="1.50.3638-beta" />
 	<PackageReference Include="RestSharp" Version="110.2.1-alpha.0.16" />
 	<PackageReference Include="JasperTemplates" Version="1.0.1" />
 	<PackageReference Include="MediatR" Version="12.2.0" />
 	<PackageReference Include="MediatR.Extensions.Microsoft.DependencyInjection" Version="11.0.0" />
+	<PackageReference Include="System.Drawing.Common" Version="8.0.1" />
+	<PackageReference Include="ZXing.Net" Version="0.16.9" />
   </ItemGroup>
 
   <ItemGroup>

@@ -21,5 +21,14 @@ namespace AirShop.ExternalServices.Entities
 
         [JsonProperty("discount")]
         public decimal Discount { get; set; }
+
+        [JsonProperty("code")]
+        public EanCode Code { get; set; }
+    }
+
+    public class EanCode
+    {
+        [JsonProperty("ean")]
+        public string Ean { get; set; }
     }
 }

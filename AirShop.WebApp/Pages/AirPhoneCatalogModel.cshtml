@@ -57,7 +57,7 @@
     @section Scripts {
         <script>
             function addToCart(productId, productName) {
-                var url = '@Url.Page("/AirPhoneCatalog", "OnPostAddToCart")';
+                var url = '@Url.Page("/AirPhoneCatalogModel", "OnPostAddToCart")';
 
                 // Wywołujemy metodę AddToCart z modelu za pomocą JavaScript
                 fetch(url, {
