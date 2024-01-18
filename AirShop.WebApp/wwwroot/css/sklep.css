@@ -152,3 +152,19 @@ img{
     text-shadow: 0 0 25px white; 
     cursor: pointer;
 }
+.shop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh; /* Opcjonalnie, je?li chcesz uzyska? centrowanie na ca?ej wysoko?ci ekranu */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    align-items: center;
+    gap: 3%;
+    text-align: center;
+    padding-top: 2rem;
+    max-width: 1200px; /* Opcjonalnie, je?li chcesz ograniczy? szeroko?? kontenera */
+}

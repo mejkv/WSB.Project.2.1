@@ -8,7 +8,7 @@ using User = AirShop.ExternalServices.Entities.User;
 
 namespace AirShop.ExternalServices.Services.Rest
 {
-    public class AirRestClient
+    public class AirRestClient : IAirRestClient
     {
         private readonly IAirRestClientConfig restConfig;
 
@@ -46,7 +46,7 @@ namespace AirShop.ExternalServices.Services.Rest
             var jsonBody = JsonConvert.SerializeObject(loginRequest);
             request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
 
-            var result = client.Execute<IEnumerable<Product>>(request);
+            var result = client.Execute<IEnumerable<User>>(request);
 
             if (!result.IsSuccessful)
                 throw new RestClientException($"RestClient error({result.StatusCode}): {result.Content}", result.StatusCode, GetNotNullErrorMessage(result.ErrorMessage));

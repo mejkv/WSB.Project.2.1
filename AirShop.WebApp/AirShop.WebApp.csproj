@@ -15,6 +15,7 @@
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
     <PackageReference Include="Microsoft.Extensions.Logging.Console" Version="7.0.0" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+    <PackageReference Include="Serilog.AspNetCore" Version="7.0.0" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,10 +23,20 @@
     <ProjectReference Include="..\AirShop.WebApiPostgre\AirShop.WebApiPostgre.csproj" />
   </ItemGroup>
 
+
+
   <ItemGroup>
-    <Content Remove="wwwroot\css\style1.css" />
+    <EmbeddedResource Include="wwwroot\css\site.css" />
+    <EmbeddedResource Include="wwwroot\css\sklep.css" />
+    <EmbeddedResource Include="wwwroot\css\style.css" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="wwwroot\css\style1.css" />
+    <EmbeddedResource Include="wwwroot\css\style1.css" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Middleware\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="wwwroot\images\airglass.png" />
   </ItemGroup>
 </Project>

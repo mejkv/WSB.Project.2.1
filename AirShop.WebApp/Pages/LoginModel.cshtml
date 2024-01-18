@@ -6,20 +6,53 @@
 
 <h1>Login</h1>
 
-<form method="post">
-    <div asp-validation-summary="All" class="text-danger"></div>
 
-    <div class="form-group">
-        <label asp-for="LoginInput.Username"></label>
-        <input asp-for="LoginInput.Username" class="form-control" />
-        <span asp-validation-for="LoginInput.Username" class="text-danger"></span>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>AirShop.LoginPage</title>
+    <link rel="stylesheet" href="./css/style1.css">
+    <link rel="icon" href="./favicon.ico" type="image/x-icon">
+</head>
+<body>
+    @*<form method="post">
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <div class="form-group">
+            <label asp-for="LoginInput.Username"></label>
+            <input asp-for="LoginInput.Username" class="form-control" />
+            <span asp-validation-for="LoginInput.Username" class="text-danger"></span>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="LoginInput.Password"></label>
+            <input asp-for="LoginInput.Password" type="password" class="form-control" />
+            <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+        </div>
+
+        <button type="submit" class="btn btn-primary">Login</button>
+    </form>*@
+    <div class="login-container">
+        <form class="login-form" method="post">
+            <h2>Zaloguj</h2>
+            <div class="input-group">
+                <label for="username">Username</label>
+                <input type="text" id="username" name="username" asp-for="LoginInput.Username">
+                <span asp-validation-for="LoginInput.Username" class="text-danger"></span>
+            </div>
+            <div class="input-group">
+                <label for="password">Password</label>
+                <input type="password" id="password" name="password" asp-for="LoginInput.Password">
+                <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+            </div>
+            <div class="button-submit">
+                <button type="submit">Loguj</button>
+            </div>
+        </form>
     </div>
 
-    <div class="form-group">
-        <label asp-for="LoginInput.Password"></label>
-        <input asp-for="LoginInput.Password" type="password" class="form-control" />
-        <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
-    </div>
-
-    <button type="submit" class="btn btn-primary">Login</button>
-</form>
+</body>
+</html>

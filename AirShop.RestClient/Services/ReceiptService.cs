@@ -7,10 +7,11 @@ using Receipt = AirShop.ExternalServices.Entities.Receipt;
 using IHttpContextAccessor = Microsoft.AspNetCore.Http.IHttpContextAccessor;
 using Microsoft.AspNetCore.Hosting;
 using AirShop.DataAccess.Data.Models;
+using AirShop.ExternalServices.Interfaces;
 
 namespace AirShop.ExternalServices.Services
 {
-    public class ReceiptService
+    public class ReceiptService : IReceiptService
     {
         private readonly InvoiceTemplateService _invoiceTemplateService;
         private readonly IHttpContextAccessor _httpContextAccessor;
@@ -26,7 +27,7 @@ namespace AirShop.ExternalServices.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public Receipt ReturnUserRecipt(List<Product> products)
+        public Receipt ReturnUserReceipt(List<Product> products)
         {
             var customer = new Customer() 
             {

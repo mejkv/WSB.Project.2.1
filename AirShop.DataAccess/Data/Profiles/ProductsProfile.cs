@@ -14,7 +14,9 @@ namespace AirShop.DataAccess.Data.Profiles
                 .ForMember(x => x.Discount, y => y.MapFrom(z => z.Discount))
                 .ForMember(x => x.Vat, y => y.MapFrom(z => z.Vat))
                 .ForMember(x => x.Value, y => y.MapFrom(z => z.Value))
-                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name));
+                .ForMember(x => x.Name, y => y.MapFrom(z => z.Name))
+                .ForMember(x => x.ProductType, y => y.MapFrom(z => z.ProductType))
+                .ForMember(x => x.Image, y => y.MapFrom(z => z.Image));
         }
     }
 }

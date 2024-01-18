@@ -9,17 +9,20 @@ using Microsoft.AspNetCore.Mvc.RazorPages;
 
 namespace AirShop.WebApp.Pages
 {
-    public class GetAndPostMethodModel : PageModel
+    public class CatalogModelBase : PageModel
     {
         private ShoppingCart _shoppingCart;
         private readonly ReceiptService _receiptService;
+        private readonly IAirRestClient _client;
 
         public List<Product> Products { get; set; }
 
-        public GetAndPostMethodModel(ShoppingCart shoppingCart, ReceiptService receiptService)
+        public CatalogModelBase(ShoppingCart shoppingCart, ReceiptService receiptService, IAirRestClient client)
         {
             _shoppingCart = shoppingCart;
             _receiptService = receiptService;
+            _client = client;
+
             Products = GetProducts().ToList();
         }
 
@@ -29,8 +32,7 @@ namespace AirShop.WebApp.Pages
 
         public IEnumerable<Product> GetProducts()
         {
-            var client = new AirRestClient(new AirRestClientConfig());
-            var products = client.GetDevices();
+            var products = _client.GetDevices();
             return products;
         }
 

@@ -1,6 +1,8 @@
 using AirShop.ExternalServices.Services;
+using AirShop.ExternalServices.Services.Rest;
 using AirShop.WebApp.ShopContext;
 using Microsoft.Extensions.Hosting.Internal;
+using Serilog;
 
 namespace AirShop.WebApp
 {
@@ -14,11 +16,18 @@ namespace AirShop.WebApp
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<ReceiptService>();
             builder.Services.AddScoped<InvoiceTemplateService>();
+
+            builder.Services.AddScoped<IAirRestClientConfig, AirRestClientConfig>();
+            builder.Services.AddScoped<IAirRestClient, AirRestClient>();
+
             builder.Services.AddHttpContextAccessor();
 
             //singletons
             builder.Services.AddSingleton<ShoppingCart>();
             builder.Services.AddSingleton<ShopMainContext>();
+
+            //loging
+            builder.Logging.AddSerilog();
 
             var app = builder.Build();
 
@@ -28,6 +37,12 @@ namespace AirShop.WebApp
                 app.UseExceptionHandler("/Error");
                 // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
                 app.UseHsts();
+            }
+
+
+            if (app.Environment.IsDevelopment())
+            {
+                app.UseStaticFiles();
             }
 
             app.UseHttpsRedirection();

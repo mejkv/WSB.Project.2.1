@@ -1,5 +1,7 @@
-﻿using AirShop.DataAccess.Data.Models.Requests;
+﻿using AirShop.DataAccess.Data.Models;
+using AirShop.DataAccess.Data.Models.Requests;
 using AirShop.WebApiPostgre.ApiServices;
+using AirShop.WebApiPostgre.Data.ApiExceptions;
 using Microsoft.AspNetCore.Mvc;
 
 namespace AirShop.WebApiPostgre.Controllers
@@ -9,19 +11,25 @@ namespace AirShop.WebApiPostgre.Controllers
     public class UserController : ControllerBase
     {
         private readonly IUserService _userService;
+        private readonly ILogger<UserController> _logger;
 
-        public UserController(IUserService userService)
+        public UserController(IUserService userService, ILogger<UserController> logger)
         {
             _userService = userService;
+            _logger = logger;
         }
 
         [HttpPost("login")]
         public async Task<IActionResult> Login([FromBody] LoginRequestModel loginModel)
         {
-            var user = await _userService.AuthenticateAsync(loginModel.Username, loginModel.Password);
-
-            if (user == null)
+            User user;
+            try
             {
+                user = await _userService.AuthenticateAsync(loginModel.Username, loginModel.Password);
+            }
+            catch (UserNotExistException ex)
+            {
+                _logger.LogError(ex.Message);
                 return NotFound();
             }
 

@@ -1,6 +1,7 @@
+using System;
 using System.Collections.Generic;
+using System.Linq;
 using AirShop.ExternalServices.Services;
-
 using AirShop.WebApp.ShopContext;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.RazorPages;
@@ -43,7 +44,7 @@ namespace AirShop.WebApp.Pages
         {
             try
             {
-                _receiptService.ReturnUserRecipt(_shoppingCart.CartItems.ToList());
+                _receiptService.ReturnUserReceipt(_shoppingCart.CartItems.ToList());
                 return new JsonResult(new { success = true });
             }
             catch (Exception ex)
@@ -56,7 +57,7 @@ namespace AirShop.WebApp.Pages
     public class ShoppingCartItem
     {
         public int ProductId { get; set; }
-        public required string ProductName { get; set; }
+        public string ProductName { get; set; }
         public decimal Price { get; set; }
     }
 }
