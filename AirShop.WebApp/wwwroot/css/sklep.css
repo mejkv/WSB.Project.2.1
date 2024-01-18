@@ -3,7 +3,7 @@
     margin:0%;
 }
 body{
-    min-height: 100vh;
+    min-height: 400vh;
     background-color: rgb(19, 19, 19);
     background-size: auto 50.6rem;
     background-position: center;
@@ -27,7 +27,7 @@ body{
 }
 .button-submit button{
     background-color: grey;
-    width: 40%;
+    width: 46%;
    padding: 10px;
     color: white;
     margin:10px 100px;
@@ -83,14 +83,14 @@ nav .sidebar button:hover{
     text-shadow: 0 0 25px white;
     cursor: pointer;
 }
-.sidebar{
+.sidebar {
     position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     width: 250px;
     z-index: 999;
-    background-color:none;
+    background-color: #141414;
     backdrop-filter: blur(3px);
     box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
     display: none;
@@ -109,62 +109,59 @@ nav .sidebar button:hover{
 section {
     padding: 60px 15%;
 }
-.container{
+
+.container {
     display: grid;
-    grid-template-columns: repeat(3, 2fr);
-    align-items: center;
-    gap: 3%;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 2%;
     text-align: center;
     padding-top: 2rem;
+    align-items: center; /* jeśli chcesz, aby wszystkie boxy zaczynały się na tej samej wysokości */
+    min-height: 350px; /* minimalna wysokość każdej sekcji */
+    max-width: 1200px; /* maksymalna szerokość kontenera */
+
 }
-img{
-    max-width: 80%;
-    height: 40%;
+
+img {
+    max-width: 100%;
+
 }
-.box{
-    size: auto;
+
+.box {
     border-radius: 2%;
-    padding: 30px 10px 10px 10px;
+    padding: 50px; /* zwiększony padding dla każdego boxa */
     background: transparent;
-    -webkit-box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
-    -moz-box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
     box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
+    min-height: 400px; /* minimalna wysokość każdego boxa */
 }
-.container h4{
+.container h4 {
     font-size: large;
     color: #ddd;
 }
-.container h5{
+
+.container h5 {
     font-weight: 400;
     color: aliceblue;
 }
-.container button{
+
+.container button {
     border: none;
-    outline: none; 
+    outline: none;
     background-color: transparent;
     height: 100%;
     padding: 10px 30px;
     text-decoration: none;
-    color: white;    
-}
-.container button:hover{
     color: white;
-    text-shadow: 0 0 25px white; 
-    cursor: pointer;
 }
+.container button:hover {
+        color: white;
+        text-shadow: 0 0 25px white;
+        cursor: pointer;
+ }
 .shop {
-    display: flex;
+
+    display: flex; /* Poprawione z flex-start */
     justify-content: center;
     align-items: center;
-    height: 100vh; /* Opcjonalnie, je?li chcesz uzyska? centrowanie na ca?ej wysoko?ci ekranu */
-}
-
-.container {
-    display: grid;
-    grid-template-columns: repeat(3, 2fr);
-    align-items: center;
-    gap: 3%;
-    text-align: center;
-    padding-top: 2rem;
-    max-width: 1200px; /* Opcjonalnie, je?li chcesz ograniczy? szeroko?? kontenera */
+    height: auto; /* Zmienione z 100% na auto, aby uniknąć nadmiernego rozciągania */
 }

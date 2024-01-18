@@ -40,7 +40,4 @@
   <ItemGroup>
     <Folder Include="Middleware\" />
   </ItemGroup>
-  <ItemGroup>
-    <None Include="wwwroot\images\airglass.png" />
-  </ItemGroup>
 </Project>

@@ -12,12 +12,20 @@ body{
 .login-container {
     width: 100%;
     max-width: 400px;
-    margin: 100px auto;
+    position: absolute; 
+    top: 50%; /* Położenie w 50% wysokości kontenera nadrzędnego */
+    left: 50%; /* Położenie w 50% szerokości kontenera nadrzędnego */
+    transform: translate(-50%, -50%); /* Przesunięcie elementu o połowę jego wysokości i szerokości w górę i w lewo */
     padding: 50px;
-    background-color:rgb(45, 45, 45);
+    background-color: rgb(45, 45, 45);
     backdrop-filter: blur(3px);
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     border-radius: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: calc(100px + 50%); /* Jeśli navbar ma wysokość 100px */
+    transform: translateX(-50%);
 }
   
 .login-form {
@@ -47,14 +55,14 @@ h2 {
     width: 80%;
     padding: 10px;
     border: 1px solid #ddd;
-    border-radius: 0px
+
 }
-.button-submit button{
-    background-color: grey;
+.button-submit button {
+    background-color: transparent; /* zmiana z grey na transparent */
     width: 40%;
-   padding: 10px;
+    padding: 10px;
     color: white;
-    margin:10px 100px;
+    margin: 10px 10px;
 }
 
 nav{
@@ -105,14 +113,14 @@ nav li:first-child{
 
     margin-right:auto;
 }
-.sidebar{
+.sidebar {
     position: fixed;
     top: 0;
     right: 0;
     height: 100vh;
     width: 250px;
     z-index: 999;
-    background-color:none;
+    background-color: #131313;
     backdrop-filter: blur(3px);
     box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
     display: none;
