@@ -1,6 +1,6 @@
 ﻿using AirShop.DataAccess.Data.Models;
 using AirShop.ExternalServices.Entities;
-using Receipt = AirShop.ExternalServices.Entities.Receipt;
+using Receipt = AirShop.DataAccess.Data.Models.Receipt;
 
 namespace AirShop.ExternalServices.Interfaces
 {

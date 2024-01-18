@@ -23,5 +23,8 @@ namespace AirShop.DataAccess.Data.Models
 
         [Required]
         public bool IsSimplifiedInvoice { get; set; }
+
+        [Required]
+        public IList<ReceiptPosition> ReceiptPositions { get; set; } 
     }
 }

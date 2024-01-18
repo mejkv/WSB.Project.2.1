@@ -3,11 +3,17 @@ using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
 using Microsoft.AspNetCore.Http;
-using Receipt = AirShop.ExternalServices.Entities.Receipt;
+using Receipt = AirShop.DataAccess.Data.Models.Receipt;
 using IHttpContextAccessor = Microsoft.AspNetCore.Http.IHttpContextAccessor;
 using Microsoft.AspNetCore.Hosting;
 using AirShop.DataAccess.Data.Models;
 using AirShop.ExternalServices.Interfaces;
+using RestSharp;
+using AirShop.ExternalServices.Services.Rest;
+using AirShop.ExternalServices.Services.Rest.RestExceptions;
+using log4net.Core;
+using Microsoft.Extensions.Logging;
+using iText.Kernel.Pdf.Canvas.Draw;
 
 namespace AirShop.ExternalServices.Services
 {
@@ -16,48 +22,44 @@ namespace AirShop.ExternalServices.Services
         private readonly InvoiceTemplateService _invoiceTemplateService;
         private readonly IHttpContextAccessor _httpContextAccessor;
         private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IAirRestClient _restClient;
+        private readonly ILogger<ReceiptService> _logger;
 
         public ReceiptService(
             InvoiceTemplateService invoiceTemplateService,
             IHttpContextAccessor httpContextAccessor,
-            IWebHostEnvironment webHostEnvironment)
+            IWebHostEnvironment webHostEnvironment,
+            IAirRestClient restClient,
+            ILogger<ReceiptService> logger)
         {
             _invoiceTemplateService = invoiceTemplateService;
             _httpContextAccessor = httpContextAccessor;
             _webHostEnvironment = webHostEnvironment;
+            _restClient = restClient;
+            _logger = logger;
         }
 
         public Receipt ReturnUserReceipt(List<Product> products, Customer customer)
         {
-            var devices = GetDevices(products);
-
-            var receipt = CreateReceipt(customer, devices);
+            var receipt = CreateReceipt(customer, products);
             
             CreatePdfDocument(receipt);
-
+            SendReceiptToDb(receipt);
             return receipt;
         }
 
-        private IList<Device> GetDevices(IList<Product> products)
+        private void SendReceiptToDb(Receipt receipt)
         {
-            var devices = new List<Device>();
-
-            foreach (var p in products)
+            try
             {
-                var device = new Device() 
-                {
-                    Name = p.Name,
-                    Discount = p.Discount,
-                    Price = p.Price,
-                    ProductId = p.ProductId,
-                    Value = p.Value,
-                    Vat = p.Vat,
-                };
-
-                devices.Add(device);
+                var result = _restClient.PostReceipt(receipt);
+                if (result.StatusCode == System.Net.HttpStatusCode.OK)
+                    _logger.Log(LogLevel.Information, "Sending receipt to db completed");
             }
-
-            return devices;
+            catch (RestClientException e)
+            {
+                _logger.Log(LogLevel.Error, $"Sending receipt to db failed: {e.Message}");
+            }
         }
 
         public void CreatePdfDocument(Receipt receipt)
@@ -90,29 +92,62 @@ namespace AirShop.ExternalServices.Services
             _httpContextAccessor.HttpContext.Response.Body.Close();
         }
 
-        public Receipt CreateReceipt(Customer customer, IList<Device> devices)
+        public Receipt CreateReceipt(Customer customer, IList<Product> products)
         {
-            return new Receipt
+            var receipt = new Receipt
             {
-                CustomerName = GetCustomerName(customer),
-                TotalAmount = devices.Sum(d => d.Value),
-                Devices = devices,
-                //InvoicePdf = Convert.ToBase64String(stream.ToArray())
+                IsSimplifiedInvoice = true,
+                Vat = 23,
+                Name = GetCustomerName(customer),
+                Value = products.Sum(p => p.Value),
+                Discount = 0,
+                Price = products.Sum(p => p.Price),
             };
-            
+
+            receipt.ReceiptPositions = CreateReceiptPositions(receipt, products);
+            return receipt;
+        }
+
+        private IList<ReceiptPosition> CreateReceiptPositions(Receipt receipt, IList<Product> products)
+        {
+            var receiptPositions = new List<ReceiptPosition>();
+            var productsGroup = products.GroupBy(p => p.ProductId);
+            foreach (var productGroup in productsGroup)
+            {
+                var receiptPosition = new ReceiptPosition()
+                {
+                    Quantity = productGroup.Count(),
+                    Product = productGroup.FirstOrDefault(),
+                    Receipt = receipt,
+                    TotalPrice = productGroup.Sum(p => p.Price),
+                };
+
+                receiptPositions.Add(receiptPosition);
+            }
+            return new List<ReceiptPosition> { };
         }
 
         private void AddContentToPdf(iText.Layout.Document document, string templateContent, Receipt invoice)
         {
             if (invoice is null)
                 return;
+            document.Add(new Paragraph($"AirShop Company"));
+            document.Add(new Paragraph($"NIP: 213766699"));
+            document.Add(new Paragraph($"ul. Kremowa 21/37, Poznań 61-535"));
 
-            document.Add(new Paragraph($"Nr paragonu: {invoice.InvoiceNumber}"));
-            document.Add(new Paragraph($"Klient: {invoice.CustomerName}"));
-            document.Add(new Paragraph($"Suma: {invoice.TotalAmount}"));
-            foreach (var device in invoice.Devices) 
+            document.Add(new LineSeparator(new SolidLine()));
+            document.Add(new Paragraph());
+
+            var rand = new Random();
+            document.Add(new Paragraph($"Nr paragonu: {rand.Next(1000,9999)}"));
+            document.Add(new Paragraph($"Klient: {invoice.Name}"));
+            document.Add(new Paragraph($"Suma: {invoice.Price}"));
+
+            document.Add(new LineSeparator(new SolidLine()));
+            document.Add(new Paragraph());
+            foreach (var position in invoice.ReceiptPositions) 
             { 
-                document.Add(new Paragraph($"Produkt: {device}")); 
+                document.Add(new Paragraph($"{position.Product.Name} | {position.Product.Code.Ean} | {position.Product.Vat} | {position.Product.Price}")); 
             }
         }
 

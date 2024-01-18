@@ -1,5 +1,6 @@
 using AirShop.DataAccess.Data.Models;
 using AirShop.ExternalServices.Entities;
+using AirShop.ExternalServices.Interfaces;
 using AirShop.ExternalServices.Services;
 using AirShop.WebApp.ShopContext;
 using AirShop.WebApp.Tools;
@@ -13,13 +14,13 @@ namespace AirShop.WebApp.Pages
     public class CheckoutPageModel : PageModel
     {
         private readonly ReceiptService _receiptService;
-        private readonly DocumentInvoiceService _receiptDocumentService;
+        private readonly IDocumentService _receiptDocumentService;
         private readonly DocumentHelper _helper;
         private readonly ShoppingCart _cart;
 
         public CheckoutPageModel(
             ReceiptService receiptService,
-            DocumentInvoiceService receiptDocumentService,
+            IDocumentService receiptDocumentService,
             DocumentHelper helper,
             ShoppingCart cart)
         {
@@ -27,6 +28,8 @@ namespace AirShop.WebApp.Pages
             _receiptDocumentService = receiptDocumentService;
             _helper = helper;
             _cart = cart;
+
+            CheckoutInput = new CheckoutInputModel();
         }
 
         [BindProperty]
@@ -39,7 +42,7 @@ namespace AirShop.WebApp.Pages
             if (CheckoutInput.GenerateInvoice)
             {
                 var invoice = _helper.GenerateInvoice(CheckoutInput, listOfProducts);
-                _receiptDocumentService.SaveInvoice(invoice);
+                _receiptDocumentService.SaveDocument(invoice);
                 return RedirectToPage("/Index");
             }
 

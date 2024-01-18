@@ -7,43 +7,50 @@ using System.Threading.Tasks;
 
 namespace AirShop.WebApiPostgre.Controllers
 {
-    [Route("api/[controller]")]
+
     [ApiController]
-    public class DocumentController : ControllerBase
+    [Route("api/[controller]")]
+    public class ReceiptController : ControllerBase
     {
         private readonly ShopDbContext _context;
 
-        public DocumentController(ShopDbContext context)
+        public ReceiptController(ShopDbContext context)
         {
             _context = context;
         }
 
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<Document>>> GetDocuments()
+        public IActionResult GetReceipts()
         {
-            return await _context.Documents.ToListAsync();
+            var receipts = _context.Receipts.ToList();
+            return Ok(receipts);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Document>> GetDocument(int id)
+        public IActionResult GetReceipt(int id)
         {
-            var document = await _context.Documents.FindAsync(id);
+            var receipt = _context.Receipts.Find(id);
 
-            if (document == null)
+            if (receipt == null)
             {
                 return NotFound();
             }
 
-            return document;
+            return Ok(receipt);
         }
 
         [HttpPost]
-        public async Task<ActionResult<Document>> PostDocument(Document document)
+        public IActionResult CreateReceipt([FromBody] Receipt receipt)
         {
-            _context.Documents.Add(document);
-            await _context.SaveChangesAsync();
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
 
-            return CreatedAtAction(nameof(GetDocument), new { id = document.DocumentId }, document);
+            _context.Receipts.Add(receipt);
+            _context.SaveChanges();
+
+            return CreatedAtAction(nameof(GetReceipt), new { id = receipt.ReceiptId }, receipt);
         }
     }
 }

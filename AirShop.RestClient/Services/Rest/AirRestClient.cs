@@ -2,8 +2,10 @@
 using AirShop.ExternalServices.Entities;
 using AirShop.ExternalServices.Services.Rest.RequestBody;
 using AirShop.ExternalServices.Services.Rest.RestExceptions;
+using Microsoft.AspNetCore.Http.HttpResults;
 using Newtonsoft.Json;
 using RestSharp;
+using System.Text.Json;
 using User = AirShop.ExternalServices.Entities.User;
 
 namespace AirShop.ExternalServices.Services.Rest
@@ -53,6 +55,70 @@ namespace AirShop.ExternalServices.Services.Rest
             
             return JsonConvert.DeserializeObject<User>(GetNotNullContent(result.Content)) ?? throw new JsonSerializationException("Deserialization of User failed.");
         }
+
+        public RestResponse PostDocument(Entities.Document invoice)
+        {
+            var client = new RestClient(restConfig.BaseUrl);
+
+            var request = new RestRequest("http://localhost:5000/api/Documents", Method.Post);
+
+            var serializer = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var jsonBody = System.Text.Json.JsonSerializer.Serialize(invoice, serializer);
+
+            request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
+
+            var result = client.Execute<Entities.Document>(request);
+
+            if (!result.IsSuccessful)
+                throw new RestClientException($"RestClient error({result.StatusCode}): {result.Content}", result.StatusCode, GetNotNullErrorMessage(result.ErrorMessage));
+            
+            return result;
+        }
+
+        public RestResponse PostReceipt(DataAccess.Data.Models.Receipt receipt)
+        {
+            var client = new RestClient(restConfig.BaseUrl);
+
+            var request = new RestRequest("http://localhost:5000/api/Documents", Method.Post);
+
+            var serializer = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+            var jsonBody = System.Text.Json.JsonSerializer.Serialize(receipt, serializer);
+
+            request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
+
+            var result = client.Execute<DataAccess.Data.Models.Receipt>(request);
+
+            if (!result.IsSuccessful)
+                throw new RestClientException($"RestClient error({result.StatusCode}): {result.Content}", result.StatusCode, GetNotNullErrorMessage(result.ErrorMessage));
+
+            return result;
+        }
+
+        public User RegisterUser(string login, string password, string email)
+        {
+            var client = new RestClient(restConfig.BaseUrl);
+
+            var request = new RestRequest("http://localhost:5000/api/User/login", Method.Post);
+
+            var loginRequest = new RegisterRequest
+            {
+                Username = login,
+                Password = password,
+                Email = email
+            };
+
+            var jsonBody = JsonConvert.SerializeObject(loginRequest);
+            request.AddParameter("application/json", jsonBody, ParameterType.RequestBody);
+
+            var result = client.Execute<User>(request);
+
+            if (!result.IsSuccessful)
+                throw new RestClientException($"RestClient error({result.StatusCode}): {result.Content}", result.StatusCode, GetNotNullErrorMessage(result.ErrorMessage));
+
+            return JsonConvert.DeserializeObject<User>(GetNotNullContent(result.Content)) ?? throw new JsonSerializationException("Deserialization of User failed.");
+        }
+
+
 
         private string GetNotNullContent(string? content)
         {

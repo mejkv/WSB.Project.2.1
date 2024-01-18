@@ -1,4 +1,6 @@
-﻿using System.ComponentModel.DataAnnotations;
+﻿using AirShop.DataAccess.Data.Entities;
+using AirShop.DataAccess.Data.Models;
+using System.ComponentModel.DataAnnotations;
 
 namespace AirShop.WebApiPostgre.Data.Entities
 {
@@ -17,5 +19,7 @@ namespace AirShop.WebApiPostgre.Data.Entities
         public decimal Discount { get; set; }
 
         public bool IsSimplifiedInvoice { get; set; }
+
+        public IList<ReceiptPositionDto> ReceiptPositions { get; set; }
     }
 }
