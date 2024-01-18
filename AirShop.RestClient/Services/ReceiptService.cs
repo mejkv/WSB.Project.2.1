@@ -27,14 +27,8 @@ namespace AirShop.ExternalServices.Services
             _webHostEnvironment = webHostEnvironment;
         }
 
-        public Receipt ReturnUserReceipt(List<Product> products)
+        public Receipt ReturnUserReceipt(List<Product> products, Customer customer)
         {
-            var customer = new Customer() 
-            {
-                Name = "",
-                FirstName = "Jan",
-                LastName = "Kowalski"
-            };
             var devices = GetDevices(products);
 
             var receipt = CreateReceipt(customer, devices);

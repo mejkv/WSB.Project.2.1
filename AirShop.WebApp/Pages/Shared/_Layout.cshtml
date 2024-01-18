@@ -1,4 +1,10 @@
-﻿<!DOCTYPE html>
+﻿@using AirShop.WebApp.ShopContext;
+@inject ShopMainContext ShopContext
+@{
+    bool isAuthenticated = ShopContext.IsUserLoggedIn;
+}
+
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="utf-8" />
@@ -30,7 +36,15 @@
             <li><button type="button" onclick="location.href='@Url.Page("/AirPhoneCatalogModel")'">AirPhone</button></li>
             <li><button type="button" onclick="location.href='@Url.Page("/AirGlassCatalogModel")'">AirGlass</button></li>
             <li><button type="button" onclick="location.href='@Url.Page("/AirTabCatalogModel")'">AirTab</button></li>
-            <li><button type="button" onclick="location.href='@Url.Page("/LoginModel")'">Login</button></li>
+            @if (isAuthenticated)
+            {
+                <li><button type="button" onclick="location.href='@Url.Page("/ShoppingCart")'">Cart</button></li>
+                <li><button type="button" onclick="location.href='@Url.Page("/ShoppingCart")'">@ShopContext.LoggedInUser.Username</button></li>
+            }
+            else
+            {
+                <li><button type="button" onclick="location.href='@Url.Page("/LoginModel")'">Login</button></li>
+            }
             <li onclick=showSidebar()>
                 <button>
                     <svg xmlns="http://www.w3.org/2000/svg" height="24" viewBox="0 -960 960 960" width="24">

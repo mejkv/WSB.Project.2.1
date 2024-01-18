@@ -27,9 +27,12 @@
                         <img src="@Url.Content(product.Image)">
                         <h4>@product.Name</h4>
                         <h5>@product.Price$</h5>
-                        <button class="addToCart" onclick="addToCart(@product.ProductId)">
+                        @*<button class="addToCart" onclick="addToCart(@product.ProductId, event)">
                             Dodaj do koszyka
-                        </button>
+                        </button>*@
+                        <form method="post" asp-page-handler="AddToCart" asp-route-productId="@product.ProductId">
+                            <button type="submit" class="addToCart">Dodaj do koszyka</button>
+                        </form>
                     </div>
                 }
             }
@@ -49,13 +52,47 @@
             }
         }
     </script>
-     <script>
-    function addToCart(productId, event) {
-    event.preventDefault(); // Zatrzymaj domyślne zachowanie formularza
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
-    // Wywołaj metodę AddToCart z modelu
-    DotNet.invokeMethodAsync('AirShop.WebApp.Pages', 'AddToCart', productId);
+    @section Scripts {
+        <script>
+            function addToCart(productId, productName) {
+                var url = '@Url.Page("/AirPhoneCatalog", "OnPostAddToCart")';
 
-    </script>
+                // Wywołujemy metodę AddToCart z modelu za pomocą JavaScript
+                fetch(url, {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({ productId: productId })
+                }).then(response => {
+                    if (response.ok) {
+                        // Wyświetlamy popup po udanym dodaniu do koszyka
+                        Swal.fire({
+                            icon: 'success',
+                            title: `${productName} został dodany do koszyka!`,
+                            showConfirmButton: false,
+                            timer: 1500
+                        });
+
+                        // Ręczne przeładowanie strony po 1.5 sekundy
+                        setTimeout(function () {
+                            location.reload();
+                        }, 1500);
+                    } else {
+                        // Obsługujemy błąd, np. wyświetlamy komunikat o niepowodzeniu
+                        Swal.fire({
+                            icon: 'error',
+                            title: 'Oops...',
+                            text: 'Coś poszło nie tak. Produkt nie został dodany do koszyka.',
+                        });
+                    }
+                }).catch(error => {
+                    console.error('Błąd:', error);
+                });
+            }
+        </script>
+    }
 </body>
 </html>

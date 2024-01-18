@@ -1,0 +1,191 @@
+﻿* {
+    padding: 0;
+    margin: 0;
+}
+
+body {
+    min-height: 100vh;
+    background-color: rgb(19, 19, 19);
+    background-size: auto 50.6rem;
+    background-position: center;
+    font-family: Helvetica;
+}
+
+.input-group {
+    margin-bottom: 20px;
+}
+
+    .input-group label {
+        display: block;
+        margin-bottom: 8px;
+        color: white;
+    }
+
+    .input-group input {
+        width: 80%;
+        padding: 10px;
+        border: 1px solid #ddd;
+        border-radius: 0px;
+    }
+
+.button-submit button {
+    background-color: grey;
+    width: 40%;
+    padding: 10px;
+    color: white;
+    margin: 10px 100px;
+    cursor: pointer;
+}
+
+nav {
+    background-color: rgb(24, 24, 24);
+}
+
+    nav ul {
+        width: 100%;
+        list-style: none;
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+    }
+
+    nav li {
+        height: 50px;
+    }
+
+    nav .sidebar button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        height: 100%;
+        padding: 0 30px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+    nav .navbar button {
+        border: none;
+        outline: none;
+        background-color: transparent;
+        height: 100%;
+        padding: 0 40px;
+        text-decoration: none;
+        display: flex;
+        align-items: center;
+        color: white;
+    }
+
+        nav .navbar button:hover {
+            color: white;
+            text-shadow: 0 0 25px white;
+            cursor: pointer;
+        }
+
+    nav li:first-child {
+        margin-right: auto;
+    }
+
+    nav .sidebar button:hover {
+        color: white;
+        text-shadow: 0 0 25px white;
+        cursor: pointer;
+    }
+
+.sidebar {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 250px;
+    z-index: 999;
+    background-color: none;
+    backdrop-filter: blur(3px);
+    box-shadow: -10px 0 10px rgba(0, 0, 0, 0.1);
+    display: none;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+}
+
+    .sidebar li {
+        width: 100%;
+    }
+
+    .sidebar button {
+        width: 100%;
+    }
+
+section {
+    padding: 60px 15%;
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    align-items: center;
+    gap: 3%;
+    text-align: center;
+    padding-top: 2rem;
+}
+
+img {
+    max-width: 80%;
+    height: 40%;
+}
+
+.box {
+    size: auto;
+    border-radius: 2%;
+    padding: 30px 10px 10px 10px;
+    background: transparent;
+    -webkit-box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
+    -moz-box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
+    box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
+}
+
+.container h4 {
+    font-size: large;
+    color: #ddd;
+}
+
+.container h5 {
+    font-weight: 400;
+    color: aliceblue;
+}
+
+.container button {
+    border: none;
+    outline: none;
+    background-color: transparent;
+    height: 100%;
+    padding: 10px 30px;
+    text-decoration: none;
+    color: white;
+}
+
+    .container button:hover {
+        color: white;
+        text-shadow: 0 0 25px white;
+        cursor: pointer;
+    }
+
+.shop {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    /* Opcjonalnie, je?li chcesz uzyska? centrowanie na ca?ej wysoko?ci ekranu */
+}
+
+.container {
+    display: grid;
+    grid-template-columns: repeat(3, 2fr);
+    align-items: center;
+    gap: 3%;
+    text-align: center;
+    padding-top: 2rem;
+    max-width: 1200px;
+    /* Opcjonalnie, je?li chcesz ograniczy? szeroko?? kontenera */
+}

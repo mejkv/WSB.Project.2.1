@@ -1,6 +1,8 @@
 using AirShop.ExternalServices.Services;
 using AirShop.ExternalServices.Services.Rest;
+using AirShop.WebApp.Pages;
 using AirShop.WebApp.ShopContext;
+using AirShop.WebApp.Tools;
 using Microsoft.Extensions.Hosting.Internal;
 using Serilog;
 
@@ -16,6 +18,8 @@ namespace AirShop.WebApp
             builder.Services.AddRazorPages();
             builder.Services.AddScoped<ReceiptService>();
             builder.Services.AddScoped<InvoiceTemplateService>();
+            builder.Services.AddScoped<DocumentInvoiceService>();
+            builder.Services.AddScoped<DocumentHelper>();
 
             builder.Services.AddScoped<IAirRestClientConfig, AirRestClientConfig>();
             builder.Services.AddScoped<IAirRestClient, AirRestClient>();

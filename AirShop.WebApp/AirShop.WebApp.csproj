@@ -10,6 +10,9 @@
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
   <ItemGroup>
+    <None Remove="Templates\ReceiptTemplate.jrxml" />
+  </ItemGroup>
+  <ItemGroup>
     <PackageReference Include="Microsoft.AspNetCore.Hosting" Version="2.2.7" />
     <PackageReference Include="Microsoft.EntityFrameworkCore.Relational" Version="7.0.14" />
     <PackageReference Include="Microsoft.Extensions.Hosting" Version="7.0.1" />
@@ -26,6 +29,7 @@
 
 
   <ItemGroup>
+    <EmbeddedResource Include="Templates\ReceiptTemplate.jrxml" />
     <EmbeddedResource Include="wwwroot\css\site.css" />
     <EmbeddedResource Include="wwwroot\css\sklep.css" />
     <EmbeddedResource Include="wwwroot\css\style.css" />
