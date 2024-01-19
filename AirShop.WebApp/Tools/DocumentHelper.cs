@@ -26,7 +26,7 @@ namespace AirShop.WebApp.Tools
                 DocumentPositions = GenerateDocumentPositions(orderedProducts, checkoutInput.GenerateInvoice),
             };
 
-            document.DocumentPositions.ForEach(dp => dp.Document = document);
+            //document.DocumentPositions.ForEach(dp => dp.Document = document);
             document.Customer = GetCustomer(checkoutInput);
 
             if (checkoutInput.IsCompany)

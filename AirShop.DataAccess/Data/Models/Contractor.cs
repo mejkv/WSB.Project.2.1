@@ -10,25 +10,15 @@ namespace AirShop.DataAccess.Data.Models
     public class Contractor
     {
         public int ContractorId { get; set; }
-        [Required]
         public string Name { get; set; }
-        [Required]
         public string FirstName { get; set; }
-        [Required]
         public string LastName { get; set; }
-        [Required]
         public string? Street { get; set; }
-        [Required]
-        public required string City { get; set; }
-        [Required] 
-        public required string HouseNumber { get; set; }
-        [Required]
+        public string City { get; set; }
+        public string HouseNumber { get; set; }
         public string? ApartmentNumber { get; set; }
-        [Required]
-        public required string PostalCode { get; set; }
-        [Required]
+        public string PostalCode { get; set; }
         public string? Nip { get; set; }
-        [Required]
         public int UserId { get; set; }
         public User User { get; set; }
     }

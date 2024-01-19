@@ -69,7 +69,10 @@ namespace AirShop.WebApiPostgre.Migrations
                         onDelete: ReferentialAction.Cascade);
                 })
                 .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.IdentityByDefaultColumn)
-                .Annotation("Npgsql:IdentitySequenceOptions", "1, 1"); 
+                .Annotation("Npgsql:IdentitySequenceOptions", "1, 1");
+
+            migrationBuilder.Sql("CREATE SEQUENCE document_id_seq;");
+            migrationBuilder.Sql("CREATE SEQUENCE document_position_id_seq;");
 
             migrationBuilder.CreateIndex(
                 name: "IX_DocumentPosition_DocumentId",

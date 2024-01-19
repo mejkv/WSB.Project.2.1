@@ -25,8 +25,8 @@ namespace AirShop.ExternalServices.Entities
         public int Quantity { get; set; }
         public decimal UnitPrice { get; set; }
         public decimal TotalPrice { get; set; }
+        
         [JsonIgnore]
-        public Document Document { get; set; }
         public Product Product { get; set; }
     }
 }

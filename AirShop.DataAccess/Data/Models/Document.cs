@@ -13,7 +13,7 @@ namespace AirShop.DataAccess.Data.Models
         public int ContractorId { get; set; }
         public DateTime IssueDate { get; set; }
         public Contractor Contractor { get; set; }
-        public User User { get; set; }
-        public List<DocumentPosition> DocumentPositions { get; set; } = new List<DocumentPosition>();
+        //public User User { get; set; }
+        public List<DocumentPosition> DocumentPositions { get; set; }
     }
 }

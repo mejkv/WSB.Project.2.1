@@ -29,7 +29,7 @@ namespace AirShop.WebApp.Pages
             _helper = helper;
             _cart = cart;
 
-            CheckoutInput = new CheckoutInputModel();
+            //CheckoutInput = new CheckoutInputModel();
         }
 
         [BindProperty]
@@ -47,6 +47,7 @@ namespace AirShop.WebApp.Pages
             }
 
             _receiptService.ReturnUserReceipt(listOfProducts, _helper.GetCustomer(CheckoutInput));
+            _cart.ClearCart();
             return RedirectToPage("/Index");
         }
 
