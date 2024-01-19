@@ -1,16 +1,12 @@
 ﻿using AirShop.DataAccess.Data.Models;
 using AirShop.DataAccess.Data.ShopDbContext;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore;
-using System.Collections.Generic;
-using System.Threading.Tasks;
 
 namespace AirShop.WebApiPostgre.Controllers
 {
-
-    [ApiController]
     [Route("api/[controller]")]
-    public class ReceiptController : ControllerBase
+    [ApiController]
+    public class ReceiptController : Controller
     {
         private readonly ShopDbContext _context;
 
@@ -42,11 +38,6 @@ namespace AirShop.WebApiPostgre.Controllers
         [HttpPost]
         public IActionResult CreateReceipt([FromBody] Receipt receipt)
         {
-            if (!ModelState.IsValid)
-            {
-                return BadRequest(ModelState);
-            }
-
             _context.Receipts.Add(receipt);
             _context.SaveChanges();
 

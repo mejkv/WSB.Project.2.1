@@ -1,8 +1,12 @@
 ﻿using AirShop.ExternalServices.Entities;
+using AirShop.ExternalServices.Services.Rest;
 using iText.Kernel.Font;
 using iText.Kernel.Pdf;
 using iText.Layout;
 using iText.Layout.Element;
+using Microsoft.AspNetCore.Hosting;
+using Microsoft.AspNetCore.Http;
+using Microsoft.Extensions.Logging;
 using System;
 using System.IO;
 using System.Text;
@@ -13,17 +17,32 @@ namespace AirShop.ExternalServices.Services.Printout
 {
     public class PrintoutService
     {
+        private readonly IHttpContextAccessor _httpContextAccessor;
+        private readonly IWebHostEnvironment _webHostEnvironment;
+        private readonly IAirRestClient _restClient;
+
+        public PrintoutService(
+            IHttpContextAccessor httpContextAccessor,
+            IWebHostEnvironment webHostEnvironment,
+            IAirRestClient restClient)
+        {
+            _httpContextAccessor = httpContextAccessor;
+            _webHostEnvironment = webHostEnvironment;
+            _restClient = restClient;
+        }
         public byte[] GeneratePdf(Document invoice)
         {
             Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 
-            using (MemoryStream stream = new MemoryStream())
+            var wwwrootPath = _webHostEnvironment.WebRootPath;
+            var filePath = Path.Combine(wwwrootPath, "WebAppPDFs", "invoice.pdf");
+            using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 using (var pdfWriter = new PdfWriter(stream))
                 {
                     using (var pdf = new PdfDocument(pdfWriter))
                     {
-                        var document = new iTextDocument(pdf); // Użycie aliasu
+                        var document = new iTextDocument(pdf);
                         var font = PdfFontFactory.CreateFont();
 
                         DrawText(document, "Dane Sklepu:", font, 50, 50);
@@ -46,7 +65,14 @@ namespace AirShop.ExternalServices.Services.Printout
                         FillDocumentFooter(invoice, document, font, yPos);
                     }
                 }
-                return stream.ToArray();
+                var fileBytes = File.ReadAllBytes(filePath);
+                _httpContextAccessor.HttpContext.Response.Clear();
+                _httpContextAccessor.HttpContext.Response.ContentType = "application/pdf";
+                _httpContextAccessor.HttpContext.Response.Headers.Add("Content-Disposition", $"inline; filename=invoice.pdf");
+                _httpContextAccessor.HttpContext.Response.Body.WriteAsync(fileBytes, 0, fileBytes.Length);
+                _httpContextAccessor.HttpContext.Response.Body.Flush();
+                _httpContextAccessor.HttpContext.Response.Body.Close();
+                return fileBytes;
             }
         }
 

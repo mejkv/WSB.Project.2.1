@@ -96,38 +96,6 @@
         </div>
     </section>
 
-    @section Scripts {
-        <script>
-            async function handleCheckout(event) {
-                event.preventDefault(); // Zatrzymuje domyślne zachowanie formularza (odświeżanie strony)
-
-                var url = '@Url.Page("/CheckoutPage", "OnPost")';
-
-                // Pobieramy dane z formularza
-                var formData = new FormData(document.querySelector('form'));
-                var checkoutData = {};
-                formData.forEach((value, key) => {
-                    checkoutData[key] = value;
-                });
-
-                // Wywołujemy metodę OnPost z modelu CheckoutPageModel za pomocą JavaScript
-                const response = await fetch(url, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                    body: JSON.stringify(checkoutData)
-                });
-
-                if (response.ok) {
-                    // Pomyślna odpowiedź, możesz np. wyświetlić potwierdzenie lub przekierować użytkownika
-                    console.log('Zamówienie zrealizowane pomyślnie!');
-                } else {
-                    // Obsługujemy błąd, np. wyświetlamy komunikat o niepowodzeniu
-                    console.error('Błąd podczas realizacji zamówienia');
-                }
-            }
-        </script>
-    }
+   
 </body>
 </html>

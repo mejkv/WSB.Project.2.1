@@ -62,10 +62,10 @@ namespace AirShop.ExternalServices.Services
             }
         }
 
-        public void CreatePdfDocument(Receipt receipt)
+        public byte[] CreatePdfDocument(Receipt receipt)
         {
             if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
-                return;
+                return new List<byte>().ToArray();
 
             var invoiceTemplateContent = _invoiceTemplateService.LoadInvoiceTemplate();
 
@@ -79,7 +79,6 @@ namespace AirShop.ExternalServices.Services
 
                 AddContentToPdf(document, invoiceTemplateContent, receipt);
 
-                // Zapisz PDF w formie stringa
                 pdf.Close();
             }
 
@@ -90,6 +89,7 @@ namespace AirShop.ExternalServices.Services
             _httpContextAccessor.HttpContext.Response.Body.WriteAsync(fileBytes, 0, fileBytes.Length);
             _httpContextAccessor.HttpContext.Response.Body.Flush();
             _httpContextAccessor.HttpContext.Response.Body.Close();
+            return fileBytes;
         }
 
         public Receipt CreateReceipt(Customer customer, IList<Product> products)
@@ -118,7 +118,7 @@ namespace AirShop.ExternalServices.Services
                 {
                     Quantity = productGroup.Count(),
                     Product = productGroup.FirstOrDefault(),
-                    Receipt = receipt,
+                    //Receipt = receipt,
                     TotalPrice = productGroup.Sum(p => p.Price),
                 };
 
