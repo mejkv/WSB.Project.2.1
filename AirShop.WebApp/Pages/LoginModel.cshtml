@@ -17,24 +17,24 @@
     <link rel="icon" href="./favicon.ico" type="image/x-icon">
 </head>
 <body>
-   
-    <div class="login-container">
-        <form class="login-form" method="post">
-            <div class="input-group">
-                <label for="username">Username</label>
-                <input type="text" id="username" name="username" asp-for="LoginInput.Username">
-                <span asp-validation-for="LoginInput.Username" class="text-danger"></span>
-            </div>
-            <div class="input-group">
-                <label for="password">Password</label>
-                <input type="password" id="password" name="password" asp-for="LoginInput.Password">
-                <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
-            </div>
-            <div class="button-submit">
-                <button type="submit">Loguj</button>
-            </div>
-        </form>
+    <div class="container-center">
+        <div class="login-container">
+            <form class="login-form" method="post">
+                <div class="input-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username" asp-for="LoginInput.Username">
+                    <span asp-validation-for="LoginInput.Username" class="text-danger"></span>
+                </div>
+                <div class="input-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" asp-for="LoginInput.Password">
+                    <span asp-validation-for="LoginInput.Password" class="text-danger"></span>
+                </div>
+                <div class="button-submit">
+                    <button type="submit">LOGIN</button>
+                </div>
+            </form>
+        </div>
     </div>
-
 </body>
 </html>

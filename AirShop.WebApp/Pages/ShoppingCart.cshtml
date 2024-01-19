@@ -10,7 +10,8 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blazoner Product Management - Shopping Cart</title>
-    <link rel="stylesheet" href="~/css/sklep.css" asp-append-version="true" />
+
+    <link rel="stylesheet" href="~/css/style1.css" asp-append-version="true">
 </head>
 <body>
 
@@ -21,7 +22,7 @@
     </nav>
 
     <section class="cart" id="cart">
-        <div class="container">
+        <div class="container-cart">
             <!-- Produkty w koszyku -->
             @foreach (var itemGroup in Model.ShoppingCartItems.GroupBy(x => x.ProductId))
             {
@@ -42,7 +43,7 @@
                             <button class="quantity-btn" onclick="increaseQuantity(@item.ProductId)">+</button>
                         </div>
                     </div>
-                    <div class="item-price">
+                    <div class="price">
                         @itemGroup.Sum(ig => ig.Price).ToString("C") 
                     </div>
                 </div>

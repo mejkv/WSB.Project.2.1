@@ -10,7 +10,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>@ViewData["Title"] - AirShop.WebApp</title>
-    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+
     <link rel="stylesheet" href="~/css/style1.css" asp-append-version="true" />
     <link rel="stylesheet" href="~/AirShop.WebApp.styles.css" asp-append-version="true" />
 </head>
@@ -27,7 +27,6 @@
             <li><button type="button" onclick="location.href='@Url.Page("/AirPhoneCatalogModel")'">AirPhone</button></li>
             <li><button type="button" onclick="location.href='@Url.Page("/AirGlassCatalogModel")'">AirGlass</button></li>
             <li><button type="button" onclick="location.href='@Url.Page("/AirTabCatalogModel")'">AirTab</button></li>
-            <li><button type="button" onclick="location.href='@Url.Page("/CheckoutModel")'">Checkout</button></li>
         </ul>
         <ul class="navbar">
             <li>
@@ -74,14 +73,10 @@
 
 
 
-    <footer class="footer">
-        <div class="container">
-            &copy; 2023 - AirShop.WebApp - <a asp-area="" asp-page="/Privacy">Privacy</a>
-        </div>
-    </footer>
+
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+  
     <script src="~/js/site.js" asp-append-version="true"></script>
 
     @await RenderSectionAsync("Scripts", required: false)

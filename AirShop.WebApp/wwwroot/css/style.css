@@ -76,13 +76,6 @@ nav li:first-child{
     align-items: flex-start;
     justify-content: flex-start;
 }
-.subtitle{
-    font-family: Helvetica;
-    font-size: 70px;
-    text-align: center;
-    color: #f0f0f0;
-    text-justify: auto;
-}
 
 .sidebar li{
     width:100%;

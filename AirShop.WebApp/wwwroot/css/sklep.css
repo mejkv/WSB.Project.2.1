@@ -129,7 +129,9 @@ img {
 
 .box {
     border-radius: 2%;
-    padding: 50px; /* zwiększony padding dla każdego boxa */
+    padding: 20px; /* zwiększony padding dla każdego boxa */
+    padding-top: 25px;
+    padding-bottom: 10px;
     background: transparent;
     box-shadow: -2px 3px 77px -44px rgba(125, 125, 125, 1);
     min-height: 400px; /* minimalna wysokość każdego boxa */

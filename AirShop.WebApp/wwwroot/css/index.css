@@ -70,7 +70,6 @@ button{
     padding: 0 30px;
     text-decoration: none;
     display: flex;
- 
     color: white;
 }
 button:hover {
@@ -91,26 +90,34 @@ button:hover {
     align-items: flex-start;
     justify-content: flex-start;
 }
-.subtitle{
-    font-family: Helvetica;
-    font-size: 70px;
-    text-align: center;
-    color: #f0f0f0;
-    text-justify: auto;
-}
+
 .sidebar li{
     width:100%;
 }
 .sidebar button{
     width:100%;
 }
-.airglass{
-    font-family: helvetica;
+
+
+.airglass {
     display: flex;
-    justify-content: center;
-    font-size: 150px;
-    text-align: center;
+    justify-content: center; /* Horizontal centering */
+    font-family: helvetica;
+    font-size: 170px;
+    font-weight: 700;
     color: #f0f0f0;
     text-shadow: 0 0 5px white;
-    
+}
+.subtitle button {
+    outline: none;
+    background-color: transparent;
+    position: absolute;
+    top: 120%;
+    left: 50%;
+    font-weight: 800;
+    transform: translate(-50%, -50%);
+    font-family: Helvetica;
+    font-size: 50px;
+    color: #f0f0f0;
+    margin-top: 70px;
 }
