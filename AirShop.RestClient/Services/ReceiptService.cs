@@ -62,15 +62,16 @@ namespace AirShop.ExternalServices.Services
             }
         }
 
-        public byte[] CreatePdfDocument(Receipt receipt)
+        public void CreatePdfDocument(Receipt receipt)
         {
             if (_httpContextAccessor == null || _httpContextAccessor.HttpContext == null)
-                return new List<byte>().ToArray();
+                return;
 
             var invoiceTemplateContent = _invoiceTemplateService.LoadInvoiceTemplate();
 
             var wwwrootPath = _webHostEnvironment.WebRootPath;
-            var filePath = Path.Combine(wwwrootPath, "WebAppPDFs", "invoice.pdf");
+            var rand = new Random();
+            var filePath = Path.Combine(wwwrootPath, "WebAppPDFs", $"invoice{rand.Next(1,100)}.pdf");
             using (var stream = new FileStream(filePath, FileMode.Create))
             {
                 var pdfWriter = new PdfWriter(stream);
@@ -83,13 +84,12 @@ namespace AirShop.ExternalServices.Services
             }
 
             var fileBytes = File.ReadAllBytes(filePath);
-            _httpContextAccessor.HttpContext.Response.Clear();
-            _httpContextAccessor.HttpContext.Response.ContentType = "application/pdf";
-            _httpContextAccessor.HttpContext.Response.Headers.Add("Content-Disposition", $"inline; filename=invoice.pdf");
-            _httpContextAccessor.HttpContext.Response.Body.WriteAsync(fileBytes, 0, fileBytes.Length);
-            _httpContextAccessor.HttpContext.Response.Body.Flush();
-            _httpContextAccessor.HttpContext.Response.Body.Close();
-            return fileBytes;
+            //_httpContextAccessor.HttpContext.Response.Clear();
+            //_httpContextAccessor.HttpContext.Response.ContentType = "application/pdf";
+            //_httpContextAccessor.HttpContext.Response.Headers.Add("Content-Disposition", $"inline; filename=invoice.pdf");
+            //_httpContextAccessor.HttpContext.Response.Body.WriteAsync(fileBytes, 0, fileBytes.Length);
+            //_httpContextAccessor.HttpContext.Response.Body.Flush();
+            //_httpContextAccessor.HttpContext.Response.Body.Close();
         }
 
         public Receipt CreateReceipt(Customer customer, IList<Product> products)
@@ -124,7 +124,7 @@ namespace AirShop.ExternalServices.Services
 
                 receiptPositions.Add(receiptPosition);
             }
-            return new List<ReceiptPosition> { };
+            return receiptPositions;
         }
 
         private void AddContentToPdf(iText.Layout.Document document, string templateContent, Receipt invoice)

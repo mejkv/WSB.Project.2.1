@@ -45,7 +45,7 @@ namespace AirShop.WebApp.Pages
                 _receiptDocumentService.SaveDocument(invoice);
                 return RedirectToPage("/Index");
             }
-
+            //W ramach przelaczenia strony
             _receiptService.ReturnUserReceipt(listOfProducts, _helper.GetCustomer(CheckoutInput));
             _cart.ClearCart();
             return RedirectToPage("/Index");

@@ -198,9 +198,13 @@ nav li:first-child{
     font-size: 50px;
     font-weight: 500;
 }
-.item-details {
-font-size:20px;
+ .quantity > span{
+     color: white;
+     font-size: 10px;
+    justify-content: space-between;
+
 }
+
 
 
 

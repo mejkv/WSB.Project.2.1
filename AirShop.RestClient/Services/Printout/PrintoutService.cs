@@ -66,12 +66,6 @@ namespace AirShop.ExternalServices.Services.Printout
                     }
                 }
                 var fileBytes = File.ReadAllBytes(filePath);
-                _httpContextAccessor.HttpContext.Response.Clear();
-                _httpContextAccessor.HttpContext.Response.ContentType = "application/pdf";
-                _httpContextAccessor.HttpContext.Response.Headers.Add("Content-Disposition", $"inline; filename=invoice.pdf");
-                _httpContextAccessor.HttpContext.Response.Body.WriteAsync(fileBytes, 0, fileBytes.Length);
-                _httpContextAccessor.HttpContext.Response.Body.Flush();
-                _httpContextAccessor.HttpContext.Response.Body.Close();
                 return fileBytes;
             }
         }

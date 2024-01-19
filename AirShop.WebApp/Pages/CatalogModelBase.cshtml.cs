@@ -42,11 +42,13 @@ namespace AirShop.WebApp.Pages
             if (productToAdd != null)
             {
                 _shoppingCart.AddToCart(productToAdd);
-                return new JsonResult(new { success = true });
+                Thread.Sleep(3000);
+                return Page();
             }
 
-            return new JsonResult(new { success = false });
+            return Page();
         }
+
 
         public void RemoveFromCart(int productId)
         {
