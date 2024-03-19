@@ -1,5 +1,7 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
-
+<PropertyGroup>
+    <OutputPath>..\bin\</OutputPath>
+</PropertyGroup>
   <ItemGroup>
     <PackageReference Include="McMaster.Extensions.CommandLineUtils" Version="4.1.1" />
     <PackageReference Include="McMaster.NETCore.Plugins" Version="1.4.0" />

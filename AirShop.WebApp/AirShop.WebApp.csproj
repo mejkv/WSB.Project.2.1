@@ -6,6 +6,9 @@
     <ImplicitUsings>enable</ImplicitUsings>
     <UserSecretsId>cff57588-4a68-4afe-900a-9ebfc9548ee9</UserSecretsId>
   </PropertyGroup>
+  <PropertyGroup>
+    <OutputPath>..\bin\</OutputPath>
+  </PropertyGroup>
 
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'https' " />
   <PropertyGroup Condition=" '$(RunConfiguration)' == 'http' " />
