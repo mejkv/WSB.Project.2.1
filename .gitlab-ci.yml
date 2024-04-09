@@ -1,0 +1,14 @@
+stages:
+  - build
+  - test
+
+build:
+  stage: build
+  script:
+    - dotnet restore
+    - dotnet build
+
+test:
+  stage: test
+  script:
+    - dotnet test
